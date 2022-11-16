@@ -1,0 +1,41 @@
+[
+    {
+        "name": "title",
+        "element_name": "h2",
+        "class_names": null,
+        "attributes": null
+    },
+    {
+        "name": "shortDesc",
+        "element_name": "em",
+        "class_names": [
+            "shortDescription"
+        ],
+        "attributes": null
+    },
+    {
+        "name": "fullDesc",
+        "element_name": "p",
+        "class_names": [
+            "description"
+        ],
+        "attributes": null
+
+    },
+    {
+        "name": "price",
+        "element_name": "strong",
+        "class_names": [
+            "listingPrice"
+        ],
+        "attributes": null
+    },
+    {
+        "name": "link",
+        "element_name": "a",
+        "class_names": null,
+        "attributes": [
+            "href"
+        ]
+    }
+]
