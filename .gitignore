@@ -3,3 +3,6 @@
 __pycache__
 
 data/sparerooms.csv
+
+**/__pycache__
+
