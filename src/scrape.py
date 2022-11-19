@@ -3,26 +3,27 @@ import logging
 import logging.config
 from bs4 import BeautifulSoup
 import requests
-import json
-from marshmallow import Schema, fields
-from csv import writer
-from client.mongo_writer import mongowriter
 from config.page_config import page_config
+from client.mongo_writer import mongowriter
+from client.csv_writer import csvwriter
 
 from utils.extractor_utils import soup_extractor
 from model.page_element import page_element
 from model.keyvalue_object import keyvalue_object
 
+log_config_file = 'config/log.conf'
 output_file = "./data/sparerooms.csv"
-offset = "10"
+page_num = 1
+search_page_size = 10 
 baseurl = "https://www.spareroom.co.uk"
-url = baseurl + "/flatshare/?offset=" + offset + "&search_id=1177415351&sort_by=by_day&mode=list";
 
 # logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
-logging.config.fileConfig('config/log.conf')
+logging.config.fileConfig(log_config_file)
 log = logging.getLogger('Extractor')
 
 def extractPageElements(url):
+
+    log.info('Extract elements from:%s', url)
 
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -42,65 +43,25 @@ def extractPageElements(url):
 
         listings.append(row)
 
-        # title = b.extractElementTextValue('title', list, 'h2', '')
-        # shortDesc = b.extractElementTextValue('shortDesc', list, 'em', 'shortDescription')
-        # fullDesc = b.extractElementTextValue('fullDesc', list, 'p', "description").replace('\n', '')
-        # price = b.extractElementTextValue('price', list, 'strong', "listingPrice")
-        # link = b.extractElementAttributeValue('link', list, 'a', '', 'href')
-
-        # attributes = []
-        # attributes.append(fillRow('title', title))
-        # attributes.append(fillRow('shortDesc', shortDesc))
-        # attributes.append(fillRow('fullDesc', fullDesc))
-        # attributes.append(fillRow('price', price))
-        # attributes.append(fillRow('link', link))
-        
-        # info = [title, price, shortDesc, link]
-        # listings.append(attributes)
-
-    # print(listings)
     return listings
-
-def fillRow(key, value):
-    return keyvalue_object(key, value)
-        
-def addToCsv(file, listings):
-    with open(file, 'w', encoding='utf8', newline='') as f:
-        first_info = listings[0]
-        header = ['Title', 'Short Description', 'Full Description', 'Price', 'Link']
-        thewriter = writer(f)
-        thewriter.writerow(header)
-
-        attributes = []
-        for info in listings:
-            for keyvalue_attr in info:
-                attributes.append(keyvalue_attr.replace('\n',' '))
-                # attributes.append(keyvalue_attr.value.replace('\n',' '))
-            thewriter.writerow(attributes)
-
-def addToMongo(listings):
-    writer = mongowriter()
-    # jsondata = json.dumps(listings.toJson(), indent=4)
-    # kv = keyvalue_object()
-    # jsondata = json.dumps(kv.__dict__ for kv in listings)
-    # jsondata = json.dumps(listings, default=obj_dict)
-    # for o in listings:
-    #     print(o.__class__.__name__)
-
-    print(jsondata)
-    writer.write(jsondata)
 
 def obj_dict(obj):
     return obj.__dict__
 
-listings = extractPageElements(url)
-addToCsv(output_file, listings)
 
-log.info('COMPLETE: Extracted elements from given html page:')
-log.info(url)
+for i in range(1, 50):
+    page_num = i
+    url = baseurl + "/flatshare/?offset=" + str(page_num * search_page_size) + "&search_id=1177415351&sort_by=by_day&mode=list";
+    listings = extractPageElements(url)
 
-data = page_config.readPageElements()
-log.info('readPageElements data: %s', data)
+    if len(listings) > 0:
+        csvwriter().writeToCsv(output_file, listings)
 
+        log.info('COMPLETE: Extracted elements from given html page:')
+        log.info(url)
 
-# addToMongo(listings)
+        data = page_config.readPageElements()
+        log.info('readPageElements data: %s', data)
+
+        # mongowriter().addToMongo(listings)
+
