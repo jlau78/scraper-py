@@ -1,3 +1,4 @@
+import logging
 from csv import writer
 from csv import DictWriter
 import os
@@ -13,8 +14,10 @@ class csvwriter:
             for info in listings:
                 row = []
                 for keyvalue in info:
-                    # row.append(self.clean_string(keyvalue))
-                    row.append(keyvalue.strip())
+                    if keyvalue is not None:
+                        logging.info('keyvalue:'+str(keyvalue))
+                        row.append(str(keyvalue).strip())
+
                 thewriter.writerow(row)
 
             f.close()

@@ -7,26 +7,28 @@ class soup_extractor:
     # def __init__(self):
     #     pass
 
-    def extractElementTextValue(self, name, element, obj_, classname): 
-        value = self.extractElementValue(element, obj_, classname, '', True)
+    def extractElementTextValue(self, name, source, element, classname): 
+        value = self.extractElementValue(source, element, classname, '', True)
         return value
 
-    def extractElementAttributeValue(self, name, element, obj_, classname, attribute): 
-        return self.extractElementValue(element, obj_, classname, attribute, False)
+    def extractElementAttributeValue(self, name, source, element, classname, attribute): 
+        return self.extractElementValue(source, element, classname, attribute, False)
 
 
-    def extractElementValue(self, element, object_, classname, attribute, text): 
+    def extractElementValue(self, source, element, classname, attribute, text): 
         value = ''
         if text == True:
-            value = element.find(object_, class_=classname).text
+            value = source.find(element, class_=classname).text
             if value is None:
-                logging.warning('element %s has no text value', element)                    
+                logging.warning('element %s has no text value', source)                    
         else:
-            value = element.find(object_, class_=classname)[attribute]
+            elem = source.find(element, class_=classname)
+            if elem is not None:
+                value = elem[attribute]
             if value is None:
-                logging.warning('element %s has no attribute value', element, attribute)                    
+                logging.warning('element %s has no attribute value', source, attribute)                    
 
-        logging.debug("Value found for element: %s:%s:%s == %s", object_, classname, attribute, value.replace('\n', ''))
+        logging.debug("Value found for element: %s:%s:%s == %s", element, classname, attribute, value)
 
         return value
 

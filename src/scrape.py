@@ -26,13 +26,25 @@ def extractPageElements(url):
     lists = soup.find_all('article', class_="panel-listing-result")
     # print(lists)
     listings = []
+
+    # TODO: jl debug: remove
+    log.info('debug: Find image: %s', soup.find('figure').find('img', class_='swiper-lazy'))
+
+
+
     for list in lists:
         b = soup_extractor()
-
         row = []
         pageconfigs = page_config.readPageElements()
         for c in pageconfigs:
-            if c['text'] is True:
+            log.info('debug: pageconfig:%s', c)
+            get_text = c['text']
+
+            if not c['container'] == None:
+                list = list.find(c['container'])
+                log.debug("Nested tag:%s", list)
+
+            if get_text is True:
                 row.append(b.extractElementTextValue(c['name'], list, c['element_name'], c['class_names']))
             else:
                 row.append(b.extractElementAttributeValue(c['name'], list, c['element_name'], c['class_names'], c['attributes'][0]))
@@ -54,7 +66,7 @@ def scrape_listing_pages(base_url, max_num_pages, result_size):
         listings = extractPageElements(url)
 
         if len(listings) > 0:
-            logging.info('listings: %s', listings)
+            # logging.info('listings: %s', listings)
             csvwriter().writeToCsv(output_file, listings)
 
             log.info('COMPLETE: Extracted elements from given html page:')
