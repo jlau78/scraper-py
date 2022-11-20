@@ -17,7 +17,6 @@ page_num = 1
 search_page_size = 10 
 baseurl = "https://www.spareroom.co.uk"
 
-# logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 logging.config.fileConfig(log_config_file)
 log = logging.getLogger('Extractor')
 
@@ -48,20 +47,24 @@ def extractPageElements(url):
 def obj_dict(obj):
     return obj.__dict__
 
-
-for i in range(1, 50):
+# Iterate through search listing pages and extract articles
+for i in range(1,50):
     page_num = i
-    url = baseurl + "/flatshare/?offset=" + str(page_num * search_page_size) + "&search_id=1177415351&sort_by=by_day&mode=list";
+    url = baseurl + "/flatshare/?offset=" + str(page_num * search_page_size) + "&search_id=1177415351&sort_by=by_day&mode=list"
     listings = extractPageElements(url)
 
     if len(listings) > 0:
+        logging.info('listings: %s', listings)
         csvwriter().writeToCsv(output_file, listings)
 
         log.info('COMPLETE: Extracted elements from given html page:')
         log.info(url)
 
         data = page_config.readPageElements()
-        log.info('readPageElements data: %s', data)
 
         # mongowriter().addToMongo(listings)
+
+
+log.info('COMPLETED: Extracted all search listings to page %s', page_num)
+
 

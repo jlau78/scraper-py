@@ -1,4 +1,5 @@
 import json
+import logging
 
 class page_config:
 
@@ -16,5 +17,7 @@ class page_config:
                 # p.attributes = data['attributes']
                 datas.append(data)
         
+        logging.debug('readPageElements configdata from:%s, data: %s', page_config.json_filepath, data)
+
         return datas
 

@@ -9,12 +9,13 @@ class csvwriter:
             self.writeHeaderToCsv(file)
 
         with open(file, 'a', encoding='utf8', newline='') as f:
-            attributes = []
             thewriter = writer(f)
             for info in listings:
-                for keyvalue_attr in info:
-                    attributes.append(keyvalue_attr)
-                thewriter.writerow(attributes)
+                row = []
+                for keyvalue in info:
+                    str(keyvalue).replace('Â ','')
+                    row.append(keyvalue)
+                thewriter.writerow(row)
 
             f.close()
 
