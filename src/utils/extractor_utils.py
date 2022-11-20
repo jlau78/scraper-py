@@ -2,7 +2,7 @@ import logging
 from bs4 import BeautifulSoup
 
 class soup_extractor:
-    '''BS extractor utilities with verification and auditing'''
+    """BS4 extractor utilities with verification and auditing"""
 
     # def __init__(self):
     #     pass
