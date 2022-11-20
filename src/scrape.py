@@ -13,9 +13,6 @@ from model.keyvalue_object import keyvalue_object
 
 log_config_file = 'config/log.conf'
 output_file = "./data/sparerooms.csv"
-page_num = 1
-search_page_size = 10 
-baseurl = "https://www.spareroom.co.uk"
 
 logging.config.fileConfig(log_config_file)
 log = logging.getLogger('Extractor')
@@ -47,24 +44,31 @@ def extractPageElements(url):
 def obj_dict(obj):
     return obj.__dict__
 
-# Iterate through search listing pages and extract articles
-for i in range(1,50):
-    page_num = i
-    url = baseurl + "/flatshare/?offset=" + str(page_num * search_page_size) + "&search_id=1177415351&sort_by=by_day&mode=list"
-    listings = extractPageElements(url)
+"""Iterate through search listing pages and extract articles"""
+def scrape_listing_pages(base_url, max_num_pages, result_size):
+    # TODO: temp feature: clean existing before writeToCsv
+    csvwriter().temp_remove_existing_csv(output_file)
 
-    if len(listings) > 0:
-        logging.info('listings: %s', listings)
-        csvwriter().writeToCsv(output_file, listings)
+    for cur_page in range(1,max_num_pages):
+        url = base_url + str(cur_page * result_size)
+        listings = extractPageElements(url)
 
-        log.info('COMPLETE: Extracted elements from given html page:')
-        log.info(url)
+        if len(listings) > 0:
+            logging.info('listings: %s', listings)
+            csvwriter().writeToCsv(output_file, listings)
 
-        data = page_config.readPageElements()
+            log.info('COMPLETE: Extracted elements from given html page:')
+            log.info(url)
 
-        # mongowriter().addToMongo(listings)
+            data = page_config.readPageElements()
+
+            # mongowriter().addToMongo(listings)
+    
+    log.info('COMPLETED: Extracted all search listings')
 
 
-log.info('COMPLETED: Extracted all search listings to page %s', page_num)
+url = "https://www.spareroom.co.uk/flatshare/?&search_id=1177415351&sort_by=by_day&mode=list&offset=" 
+search_page_size = 10 
+max_search_page = 8
 
-
+scrape_listing_pages(url, max_search_page, search_page_size)

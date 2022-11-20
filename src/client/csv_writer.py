@@ -13,8 +13,8 @@ class csvwriter:
             for info in listings:
                 row = []
                 for keyvalue in info:
-                    str(keyvalue).replace('Â ','')
-                    row.append(keyvalue)
+                    # row.append(self.clean_string(keyvalue))
+                    row.append(keyvalue.strip())
                 thewriter.writerow(row)
 
             f.close()
@@ -26,6 +26,20 @@ class csvwriter:
             thewriter.writerow(header)
             f.close()
 
+    def temp_remove_existing_csv(self, file):
+        """Temp feature: Remove previous extract csv before scraping again"""
+        if os.path.exists(file):
+            os.remove(file)
+
     def is_file_empty(self, file_path):
         return os.path.exists(file_path) and os.stat(file_path).st_size == 0
 
+    def clean_string(self, svalue):
+        str(svalue).replace('\t', '  ')
+        # str(svalue).replace('\b', ' ')
+        str(svalue).replace('\r', ' ')
+        str(svalue).replace('\n', '  ')
+        return str(self.encode_ascii(svalue))
+
+    def encode_ascii(self, svalue):
+        return str(svalue).encode('ascii', 'ignore')
