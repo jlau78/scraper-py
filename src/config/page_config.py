@@ -2,22 +2,18 @@ import json
 import logging
 
 class page_config:
-
-    json_filepath = 'config/spareroom_search_listing_config.json'
+    """Get config for page elements to extract values from.
+        name, container, element_name, class_names, attributes, text
+    """
       
-    def readPageElements():
+    def readPageElements(pageconfig_filepath):
         datas = []
-        with open(page_config.json_filepath) as json_file:
+        with open(pageconfig_filepath) as json_file:
             alldata = json.load(json_file)
             for data in alldata:
-                # p = page_element
-                # p.name = data['name']
-                # p.element_name = data['element_name']
-                # p.class_names = data['class_names']
-                # p.attributes = data['attributes']
                 datas.append(data)
         
-        logging.debug('readPageElements configdata from:%s, data: %s', page_config.json_filepath, data)
+        logging.debug('readPageElements configdata from:%s, data: %s', pageconfig_filepath, data)
 
         return datas
 

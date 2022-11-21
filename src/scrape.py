@@ -11,33 +11,33 @@ from utils.extractor_utils import soup_extractor
 from model.page_element import page_element
 from model.keyvalue_object import keyvalue_object
 
-log_config_file = 'config/log.conf'
 output_file = "./data/sparerooms.csv"
+pageconfig_filepath = 'config/spareroom_search_listing_config.json'
 
+log_config_file = 'config/log.conf'
 logging.config.fileConfig(log_config_file)
 log = logging.getLogger('Extractor')
 
 def extractPageElements(url):
+    """Extract the values from the page elements defined by the page_config"""
 
     log.info('Extract elements from:%s', url)
 
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    lists = soup.find_all('article', class_="panel-listing-result")
-    # print(lists)
+    lists = soup.find_all('li', class_="listing-result")
+    # lists = soup.find_all('article', class_="panel-listing-result")
     listings = []
-
-    # TODO: jl debug: remove
-    log.info('debug: Find image: %s', soup.find('figure').find('img', class_='swiper-lazy'))
-
-
 
     for list in lists:
         b = soup_extractor()
         row = []
-        pageconfigs = page_config.readPageElements()
+        pageconfigs = page_config.readPageElements(pageconfig_filepath)
+        headers = []
         for c in pageconfigs:
-            log.info('debug: pageconfig:%s', c)
+            log.debug('debug: pageconfig defined elements to extract values:%s', c)
+            headers.append(c['name'])
+
             get_text = c['text']
 
             if not c['container'] == None:
@@ -48,16 +48,18 @@ def extractPageElements(url):
                 row.append(b.extractElementTextValue(c['name'], list, c['element_name'], c['class_names']))
             else:
                 row.append(b.extractElementAttributeValue(c['name'], list, c['element_name'], c['class_names'], c['attributes'][0]))
-
         listings.append(row)
 
+    # create_csv_headers(headers)
     return listings
 
-def obj_dict(obj):
-    return obj.__dict__
+def create_csv_headers(headers):
+    """Create the headers in the new CSV file"""
+    csvwriter().writeHeaderToCsv(output_file, headers)
 
-"""Iterate through search listing pages and extract articles"""
 def scrape_listing_pages(base_url, max_num_pages, result_size):
+    """Iterate through search listing pages and extract articles"""
+
     # TODO: temp feature: clean existing before writeToCsv
     csvwriter().temp_remove_existing_csv(output_file)
 
@@ -72,14 +74,14 @@ def scrape_listing_pages(base_url, max_num_pages, result_size):
             log.info('COMPLETE: Extracted elements from given html page:')
             log.info(url)
 
-            data = page_config.readPageElements()
+            data = page_config.readPageElements(pageconfig_filepath)
 
             # mongowriter().addToMongo(listings)
     
     log.info('COMPLETED: Extracted all search listings')
 
 
-url = "https://www.spareroom.co.uk/flatshare/?&search_id=1177415351&sort_by=by_day&mode=list&offset=" 
+url = "https://www.spareroom.co.uk/flatshare/?&search_id=1180008714&sort_by=by_day&mode=list&offset=" 
 search_page_size = 10 
 max_search_page = 8
 

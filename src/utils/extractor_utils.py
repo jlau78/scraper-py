@@ -1,5 +1,4 @@
 import logging
-from bs4 import BeautifulSoup
 
 class soup_extractor:
     """BS4 extractor utilities with verification and auditing"""
@@ -18,13 +17,19 @@ class soup_extractor:
     def extractElementValue(self, source, element, classname, attribute, text): 
         value = ''
         if text == True:
-            value = source.find(element, class_=classname).text
-            if value is None:
-                logging.warning('element %s has no text value', source)                    
+            if element is None:
+                value = source.text
+            else:
+                value = source.find(element, class_=classname).text
+                if value is None:
+                    logging.warning('element %s has no text value', source)                    
         else:
-            elem = source.find(element, class_=classname)
-            if elem is not None:
-                value = elem[attribute]
+            if element is None:
+                value = source[attribute]
+            else:
+                elem = source.find(element, class_=classname)
+                if elem is not None:
+                    value = elem[attribute]
             if value is None:
                 logging.warning('element %s has no attribute value', source, attribute)                    
 

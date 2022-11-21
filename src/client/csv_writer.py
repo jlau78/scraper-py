@@ -5,28 +5,35 @@ import os
 
 class csvwriter:
 
-    def writeToCsv(self, file, listings):
-        if self.is_file_empty(file):
-            self.writeHeaderToCsv(file)
+    log = logging.getLogger('csvwriter')
 
+    def writeToCsv(self, file, listings):
+        """Write the data rows to the CSV file"""
+
+        if self.is_file_empty(file):
+            headers = ['Title', 'flatshare_id', 'Short Description', 'Full Description', 'Price', 'Thumbnail', 'Link']
+            self.writeHeaderToCsv(file, headers)
+
+        csvwriter().log.info('Write to CSV ' )
         with open(file, 'a', encoding='utf8', newline='') as f:
             thewriter = writer(f)
             for info in listings:
                 row = []
                 for keyvalue in info:
                     if keyvalue is not None:
-                        logging.info('keyvalue:'+str(keyvalue))
                         row.append(str(keyvalue).strip())
 
                 thewriter.writerow(row)
 
             f.close()
 
-    def writeHeaderToCsv(self, file):
+    def writeHeaderToCsv(self, file, headers):
+        """Write the headers to the new CSV"""
+
+        logging.info("CSV Headers written")
         with open(file, 'w', encoding='utf8', newline='') as f:
-            header = ['Title', 'Short Description', 'Full Description', 'Price', 'Link']
             thewriter = writer(f)
-            thewriter.writerow(header)
+            thewriter.writerow(headers)
             f.close()
 
     def temp_remove_existing_csv(self, file):
@@ -35,7 +42,8 @@ class csvwriter:
             os.remove(file)
 
     def is_file_empty(self, file_path):
-        return os.path.exists(file_path) and os.stat(file_path).st_size == 0
+        return not os.path.exists(file_path) or os.path.exists(file_path) and os.stat(file_path).st_size == 0
+        # return os.path.exists(file_path) and os.stat(file_path).st_size == 0
 
     def clean_string(self, svalue):
         str(svalue).replace('\t', '  ')
