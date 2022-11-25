@@ -7,80 +7,31 @@ from config.page_config import page_config
 from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
 
+from utils.scraper import scraper
 from utils.extractor_utils import soup_extractor
 from model.page_element import page_element
 from model.keyvalue_object import keyvalue_object
 
-log_config_file = 'config/log.conf'
+
+logging.config.fileConfig('config/log.conf')
+log = logging.getLogger('Do_Scrape')
+
+scraper = scraper()
+
 output_file = "./data/sparerooms.csv"
-
-logging.config.fileConfig(log_config_file)
-log = logging.getLogger('Extractor')
-
-def extractPageElements(url):
-
-    log.info('Extract elements from:%s', url)
-
-    page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    lists = soup.find_all('article', class_="panel-listing-result")
-    # print(lists)
-    listings = []
-
-    # TODO: jl debug: remove
-    log.info('debug: Find image: %s', soup.find('figure').find('img', class_='swiper-lazy'))
-
-
-
-    for list in lists:
-        b = soup_extractor()
-        row = []
-        pageconfigs = page_config.readPageElements()
-        for c in pageconfigs:
-            log.info('debug: pageconfig:%s', c)
-            get_text = c['text']
-
-            if not c['container'] == None:
-                list = list.find(c['container'])
-                log.debug("Nested tag:%s", list)
-
-            if get_text is True:
-                row.append(b.extractElementTextValue(c['name'], list, c['element_name'], c['class_names']))
-            else:
-                row.append(b.extractElementAttributeValue(c['name'], list, c['element_name'], c['class_names'], c['attributes'][0]))
-
-        listings.append(row)
-
-    return listings
-
-def obj_dict(obj):
-    return obj.__dict__
-
-"""Iterate through search listing pages and extract articles"""
-def scrape_listing_pages(base_url, max_num_pages, result_size):
-    # TODO: temp feature: clean existing before writeToCsv
-    csvwriter().temp_remove_existing_csv(output_file)
-
-    for cur_page in range(1,max_num_pages):
-        url = base_url + str(cur_page * result_size)
-        listings = extractPageElements(url)
-
-        if len(listings) > 0:
-            # logging.info('listings: %s', listings)
-            csvwriter().writeToCsv(output_file, listings)
-
-            log.info('COMPLETE: Extracted elements from given html page:')
-            log.info(url)
-
-            data = page_config.readPageElements()
-
-            # mongowriter().addToMongo(listings)
-    
-    log.info('COMPLETED: Extracted all search listings')
-
-
-url = "https://www.spareroom.co.uk/flatshare/?&search_id=1177415351&sort_by=by_day&mode=list&offset=" 
+pageconfig_file = 'config/spareroom_search_listing_config.json'
+url = "https://www.spareroom.co.uk/flatshare/?&search_id=1180008714&sort_by=by_day&mode=list&offset=" 
 search_page_size = 10 
 max_search_page = 8
+scraper.scrape_listing_pages(url, pageconfig_file, max_search_page, search_page_size, ['li', 'listing-result'], output_file)
 
-scrape_listing_pages(url, max_search_page, search_page_size)
+# log.info('soupfinder: %s', scraper.soup_find(url, ['li',"listing-result"] ))
+
+output_file = "./data/sparerooms_room_16107130.csv"
+pageconfig_file = 'config/spareroom_room_detail_config.json'
+url = "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=16107130" 
+scraper.scrape_single_page(url, pageconfig_file, ['div', 'free_listing'], output_file)
+
+
+# fn = lambda soup.find_all('li', class_="listing-result")
+

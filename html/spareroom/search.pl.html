@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<!--[if lte IE 7 ]>
+<html class="desktop uk ie ie7 logged_out no-js" lang="en-GB">
+<![endif]-->
+<!--[if IE 8 ]>
+<html class="desktop uk ie ie8 logged_out no-js" lang="en-GB">
+<![endif]-->
+<!--[if IE 9 ]>
+<html class="desktop uk ie ie9 logged_out no-js" lang="en-GB">
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]> -->
+<html class="desktop uk logged_out no-js" lang="en-GB">
+<!-- <![endif]-->
+  <head>
+<style>.hidden-overlay { display: none }</style><meta charset="iso-8859-1"><meta name="language" content="en-GB"><meta name="author" content="SpareRoom"><meta name="robots" content="all,index,follow"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1"><meta name="description" content="Search through 1000s of flatshare and flatmate profiles on SpareRoom and find your next flatmate. 66,746 ads online today."><meta name="keywords" content="Flatmate finder,search,room search,find,flatshares"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <script>
+    var _rollbarConfig = {
+      accessToken: '7f5c6331ec8a4bcdb17c0275d8f67283',
+      captureUncaught: true,
+      captureUnhandledRejections: true,
+      ignoreDuplicateErrors: true,
+      payload: {
+        environment: 'production-uk',
+        client: {
+          javascript: {
+            source_map_enabled: true,
+            code_version: '1.0'
+          }
+        },
+        
+      }
+    };
+    // Rollbar Snippet
+    !function(r){var e={};function o(n){if(e[n])return e[n].exports;var t=e[n]={i:n,l:!1,exports:{}};return r[n].call(t.exports,t,t.exports,o),t.l=!0,t.exports}o.m=r,o.c=e,o.d=function(r,e,n){o.o(r,e)||Object.defineProperty(r,e,{enumerable:!0,get:n})},o.r=function(r){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(r,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(r,"__esModule",{value:!0})},o.t=function(r,e){if(1&e&&(r=o(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var n=Object.create(null);if(o.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var t in r)o.d(n,t,function(e){return r[e]}.bind(null,t));return n},o.n=function(r){var e=r&&r.__esModule?function(){return r.default}:function(){return r};return o.d(e,"a",e),e},o.o=function(r,e){return Object.prototype.hasOwnProperty.call(r,e)},o.p="",o(o.s=0)}([function(r,e,o){"use strict";var n=o(1),t=o(4);_rollbarConfig=_rollbarConfig||{},_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||"https://cdn.rollbar.com/rollbarjs/refs/tags/v2.20.0/rollbar.min.js",_rollbarConfig.async=void 0===_rollbarConfig.async||_rollbarConfig.async;var a=n.setupShim(window,_rollbarConfig),l=t(_rollbarConfig);window.rollbar=n.Rollbar,a.loadFull(window,document,!_rollbarConfig.async,_rollbarConfig,l)},function(r,e,o){"use strict";var n=o(2);function t(r){return function(){try{return r.apply(this,arguments)}catch(r){try{console.error("[Rollbar]: Internal error",r)}catch(r){}}}}var a=0;function l(r,e){this.options=r,this._rollbarOldOnError=null;var o=a++;this.shimId=function(){return o},"undefined"!=typeof window&&window._rollbarShims&&(window._rollbarShims[o]={handler:e,messages:[]})}var i=o(3),s=function(r,e){return new l(r,e)},d=function(r){return new i(s,r)};function c(r){return t((function(){var e=this,o=Array.prototype.slice.call(arguments,0),n={shim:e,method:r,args:o,ts:new Date};window._rollbarShims[this.shimId()].messages.push(n)}))}l.prototype.loadFull=function(r,e,o,n,a){var l=!1,i=e.createElement("script"),s=e.getElementsByTagName("script")[0],d=s.parentNode;i.crossOrigin="",i.src=n.rollbarJsUrl,o||(i.async=!0),i.onload=i.onreadystatechange=t((function(){if(!(l||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState)){i.onload=i.onreadystatechange=null;try{d.removeChild(i)}catch(r){}l=!0,function(){var e;if(void 0===r._rollbarDidLoad){e=new Error("rollbar.js did not load");for(var o,n,t,l,i=0;o=r._rollbarShims[i++];)for(o=o.messages||[];n=o.shift();)for(t=n.args||[],i=0;i<t.length;++i)if("function"==typeof(l=t[i])){l(e);break}}"function"==typeof a&&a(e)}()}})),d.insertBefore(i,s)},l.prototype.wrap=function(r,e,o){try{var n;if(n="function"==typeof e?e:function(){return e||{}},"function"!=typeof r)return r;if(r._isWrap)return r;if(!r._rollbar_wrapped&&(r._rollbar_wrapped=function(){o&&"function"==typeof o&&o.apply(this,arguments);try{return r.apply(this,arguments)}catch(o){var e=o;throw e&&("string"==typeof e&&(e=new String(e)),e._rollbarContext=n()||{},e._rollbarContext._wrappedSource=r.toString(),window._rollbarWrappedError=e),e}},r._rollbar_wrapped._isWrap=!0,r.hasOwnProperty))for(var t in r)r.hasOwnProperty(t)&&(r._rollbar_wrapped[t]=r[t]);return r._rollbar_wrapped}catch(e){return r}};for(var u="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","),p=0;p<u.length;++p)l.prototype[u[p]]=c(u[p]);r.exports={setupShim:function(r,e){if(r){var o=e.globalAlias||"Rollbar";if("object"==typeof r[o])return r[o];r._rollbarShims={},r._rollbarWrappedError=null;var a=new d(e);return t((function(){e.captureUncaught&&(a._rollbarOldOnError=r.onerror,n.captureUncaughtExceptions(r,a,!0),e.wrapGlobalEventHandlers&&n.wrapGlobals(r,a,!0)),e.captureUnhandledRejections&&n.captureUnhandledRejections(r,a,!0);var t=e.autoInstrument;return!1 !==e.enabled&&(void 0===t||!0===t||"object"==typeof t&&t.network)&&r.addEventListener&&(r.addEventListener("load",a.captureLoad.bind(a)),r.addEventListener("DOMContentLoaded",a.captureDomContentLoaded.bind(a))),r[o]=a,a}))()}},Rollbar:d}},function(r,e,o){"use strict";function n(r,e,o,n){r._rollbarWrappedError&&(n[4]||(n[4]=r._rollbarWrappedError),n[5]||(n[5]=r._rollbarWrappedError._rollbarContext),r._rollbarWrappedError=null);var t=e.handleUncaughtException.apply(e,n);o&&o.apply(r,n),"anonymous"===t&&(e.anonymousErrorsPending+=1)}function t(r,e,o){if(e.hasOwnProperty&&e.hasOwnProperty("addEventListener")){for(var n=e.addEventListener;n._rollbarOldAdd&&n.belongsToShim;)n=n._rollbarOldAdd;var t=function(e,o,t){n.call(this,e,r.wrap(o),t)};t._rollbarOldAdd=n,t.belongsToShim=o,e.addEventListener=t;for(var a=e.removeEventListener;a._rollbarOldRemove&&a.belongsToShim;)a=a._rollbarOldRemove;var l=function(r,e,o){a.call(this,r,e&&e._rollbar_wrapped||e,o)};l._rollbarOldRemove=a,l.belongsToShim=o,e.removeEventListener=l}}r.exports={captureUncaughtExceptions:function(r,e,o){if(r){var t;if("function"==typeof e._rollbarOldOnError)t=e._rollbarOldOnError;else if(r.onerror){for(t=r.onerror;t._rollbarOldOnError;)t=t._rollbarOldOnError;e._rollbarOldOnError=t}e.handleAnonymousErrors();var a=function(){var o=Array.prototype.slice.call(arguments,0);n(r,e,t,o)};o&&(a._rollbarOldOnError=t),r.onerror=a}},captureUnhandledRejections:function(r,e,o){if(r){"function"==typeof r._rollbarURH&&r._rollbarURH.belongsToShim&&r.removeEventListener("unhandledrejection",r._rollbarURH);var n=function(r){var o,n,t;try{o=r.reason}catch(r){o=void 0}try{n=r.promise}catch(r){n="[unhandledrejection] error getting `promise` from event"}try{t=r.detail,!o&&t&&(o=t.reason,n=t.promise)}catch(r){}o||(o="[unhandledrejection] error getting `reason` from event"),e&&e.handleUnhandledRejection&&e.handleUnhandledRejection(o,n)};n.belongsToShim=o,r._rollbarURH=n,r.addEventListener("unhandledrejection",n)}},wrapGlobals:function(r,e,o){if(r){var n,a,l="EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");for(n=0;n<l.length;++n)r[a=l[n]]&&r[a].prototype&&t(e,r[a].prototype,o)}}}},function(r,e,o){"use strict";function n(r,e){this.impl=r(e,this),this.options=e,function(r){for(var e=function(r){return function(){var e=Array.prototype.slice.call(arguments,0);if(this.impl[r])return this.impl[r].apply(this.impl,e)}},o="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","),n=0;n<o.length;n++)r[o[n]]=e(o[n])}(n.prototype)}n.prototype._swapAndProcessMessages=function(r,e){var o,n,t;for(this.impl=r(this.options);o=e.shift();)n=o.method,t=o.args,this[n]&&"function"==typeof this[n]&&("captureDomContentLoaded"===n||"captureLoad"===n?this[n].apply(this,[t[0],o.ts]):this[n].apply(this,t));return this},r.exports=n},function(r,e,o){"use strict";r.exports=function(r){return function(e){if(!e&&!window._rollbarInitialized){for(var o,n,t=(r=r||{}).globalAlias||"Rollbar",a=window.rollbar,l=function(r){return new a(r)},i=0;o=window._rollbarShims[i++];)n||(n=o.handler),o.handler._swapAndProcessMessages(l,o.messages);window[t]=n,window._rollbarInitialized=!0}}}}]);
+    // End Rollbar Snippet
+  </script>
+<script nomodule src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+<script>
+    if ( typeof NodeList.prototype.forEach !== "function" ) {
+      NodeList.prototype.forEach = Array.prototype.forEach;
+    }
+</script>
+<script>
+  'use strict'
+
+  var _sr = {};
+  _sr.session = {
+    
+    loggedin: false,
+    user_known: false,
+    session_id: '',
+    session_key: '',
+    language: navigator.language.split('-')[0]
+  };
+
+
+
+
+
+_sr.commerce = {
+  purchased: {},
+  products: {
+      personal: [{
+        id: '454',
+        name: '4 week saver',
+        duration: '4 weeks',
+        price: '24.99',
+        original_price: '29.99',
+        selling_points: {
+          bold: [
+            '89p per day',
+            'Pause your upgrade (once per 4 week saver)',
+            'The stress-free option – give yourself plenty of time'
+          ],
+          early_bird: [
+            '89p per day',
+            'Pause your upgrade (once per 4 week saver)',
+            'The stress-free option – give yourself plenty of time'
+          ],
+        },
+      },{
+          id: '829',
+          name: '2 weeks',
+          duration: '2 weeks',
+          price: '19.99',
+          
+          selling_points: {
+            bold: [
+              '£1.43 per day',
+              '74% of people fill their room within 2 weeks'
+            ],
+            early_bird: [
+              '£1.43 per day',
+              '78% of people find a place within 2 weeks'
+            ],
+          },
+      }, {
+        id: '460',
+        name: '1 week',
+        duration: '1 week',
+        price: '10.99',
+        
+        selling_points: {
+          bold: [
+            '£1.57 per day',
+            '40% of people fill their room within 7 days'
+          ],
+          early_bird: [
+            '£1.57 per day',
+            '41% of people find somewhere within 7 days'
+          ],
+        },
+      }, {
+        id: '463',
+        name: '6 months',
+        duration: '6 months',
+        price: '99',
+        selling_points: {
+          bold: [
+            '54p per day',
+            'Great value'
+          ],
+          early_bird: [
+            '54p per day',
+            'Great value'
+          ]
+        },
+      }, {
+        id: '466',
+        name: '1 year',
+        duration: '1 year',
+        price: '139',
+        selling_points: {
+          bold: [
+            '38p per day',
+            'Best value'
+          ],
+          early_bird: [
+            '38p per day',
+            'Best value'
+          ]
+        },
+      }],
+      pro: [],
+  },
+  payment_providers: [
+  
+    {
+      name: 'paypal',
+      url : 'https://www.paypal.com/cgi-bin/webscr',
+      use_sandbox : '0'
+    },
+  
+  
+    {
+      name: 'paypal_rest',
+      url : 'https://www.paypal.com/cgi-bin/webscr',
+      use_sandbox : '0'
+    },
+  
+  
+    {
+      name: 'stripe',
+      url: 'https://orders.spareroom.co.uk/stripe/charge',
+      publishable_key: 'pk_live_ULPe0T07QEa1nYw9b9i6QFCs'
+    },
+  
+  
+    {
+      name: 'worldpay',
+      url : 'https://secure.worldpay.com/wcc/purchase',
+      use_sandbox : '0'
+    },
+  
+  ],
+miscellaneous: {
+  context: '',
+  instId: '137527',
+},
+discounts: {
+},
+checkout_cart: {
+  cart_id: '',
+    product_description: 'Upgrade (inc Early Bird Access)',
+  items: [],
+},
+context: {
+  context: 'global',
+  discounts_available: false,
+  platform: 'desktop',
+  product_type: 'bold',
+  departments: [
+        'Pro Monthly',
+        'Pro Annual',
+        'Multi Ads Annual',
+        'Personal',
+  ]
+},};
+  _sr.page = {
+    loginReturnPath:  '\x2Fflatshare\x2Fsearch\x2Epl',
+      name: "/search/simple/",
+      name_alt: "/search/simple/".replace(/_notlogged_in|_logged_in/, '')
+  };
+    function getSegments(){
+
+      var segments = [
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+          ,
+      ];
+      var filtered =  segments.filter(
+        function(item){
+          return item != undefined
+      });
+      return filtered.join();
+    }
+   _sr.customer = {
+    
+  };
+
+  _sr.affiliate = {
+    id: '',
+    category: '',
+  };
+
+  _sr.messaging = {
+    label_colours: [
+      {
+        font: '#000000',
+        hex: '#14C8F6',
+        rgb: 'rgb(20,200,246)',
+        description: 'Light Blue'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#999999',
+        rgb: 'rgb(153,153,153)',
+        description: 'Grey'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#000000',
+        rgb: 'rgb(0,0,0)',
+        description: 'Black'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#EA321B',
+        rgb: 'rgb(234,50,27)',
+        description: 'Red'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#005480',
+        rgb: 'rgb(0,84,128)',
+        description: 'Navy Blue'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#4BA72F',
+        rgb: 'rgb(75,167,47)',
+        description: 'Forest Green'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#97198B',
+        rgb: 'rgb(151,25,139)',
+        description: 'Purple'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#FF9600',
+        rgb: 'rgb(255,150,0)',
+        description: 'Orange'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#6398B4',
+        rgb: 'rgb(99,152,180)',
+        description: 'Sea Blue'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#00D845',
+        rgb: 'rgb(0,216,69)',
+        description: 'Lime Green'
+      },
+      {
+        font: '#FFFFFF',
+        hex: '#FF00BF',
+        rgb: 'rgb(255,0,191)',
+        description: 'Hot Pink'
+      },
+      {
+        font: '#000000',
+        hex: '#F4C95A',
+        rgb: 'rgb(244,201,90)',
+        description: 'Yellow'
+      },
+    ]
+  };
+
+  _sr.localisations = {
+    modal: {
+      close: "Close",
+      dialog_window: "dialog window",
+    },
+    social: {
+      share: "share",
+    },
+    upgrade: {
+      four_week_title: "4 week saver",
+      four_week_desc: "28 Day extra listing",
+      three_month_title: "3 months",
+      three_month_desc: "3 months extra listing",
+      six_month_title: "6 months",
+      six_month_desc: "6 Month extra listing",
+      one_year_title: "1 year",
+      one_year_desc: "1 Year extra listing",
+      see_example: "See example",
+      bold_advertising: "Bold Advertising"  ,    
+      how_your_ad_will_look: "How your upgraded ad will look in the search results - enhanced for better visibility",
+      how_your_ad_currently_appears: "How your ad currently appears in the search results",
+      post_a_bold_ad: "Post a Bold Ad",
+      upgrade_now: "Upgrade now",
+      choose_your_upgrade: "Choose your upgrade",
+      enter_card_details: "Enter card details",
+      pay_securely: "Pay securely",
+      or: "or",
+      pay: "Pay",
+      making_payment: "Making payment",
+      make_payment: "Make payment",
+      sorry_something_went_wrong: "Sorry. Something went wrong.",
+      extra_listings: "Extra listings",
+      none_selected: "None selected",
+      or_see_our: "Or see our",
+      multi_listing_bundles: "Multi Listing Bundles",
+      with_advert_boosts: "with advert boosts",
+      each: "each",
+      small_print_1_year: "£34/£39 each with the 1 year upgrade",
+      small_print_6_months: "£24/£29 each with the 6 month upgrade",
+      small_print_3_months: "£24/£29 each with the 3 month upgrade",
+      small_print_4_weeks: "£14/19 each with the 30 day upgrade",
+      small_print_na: "Only available on 4 week, 6 month or 1 year upgrades",
+      not_a_subscription: "This is not a subscription",
+      off: "off",
+      renew_today: "Renew today for a",
+      discount: "discount",
+      upgrade_failure: "Upgrade failure",
+      payment_not_authorised: "Your payment was not authorised. Please check your card details or use a different card.",
+      upgrade_error: "Upgrade error",
+      upgrade_error_msg: "Sorry, we had a problem processing your payment. Please contact Customer Services on",
+      upgrade_applied: "Upgrade applied",
+      upgrade_applied_msg: "Thank you. Your payment was successful and your upgrade has been applied. Manage your ads below or post a new one.",
+      most_popular: "Most popular",
+    },
+    
+      auth: {
+        login: "Log in",
+        continue_with_facebook: "Continue with Facebook",
+        login_with_facebook: "Log in with Facebook",
+        register_with_facebook: "Register with Facebook",
+        register_via_email: "Register via email",
+        or: "OR",
+        email: "Email",
+        password: "Password",
+        remember_me: "Remember me",
+        not_registered_join_us: "Not registered? Join us FREE",
+        forgot_your_password: "Forgot your password?",
+      },
+    
+  };
+
+
+  _sr.site = {
+    asset_server: 'https:///v2',
+    
+    id: 1,
+    country: 'GB',
+    currency: 'GBP',
+    currency_symbol: "£",
+    domain: 'spareroom.co.uk',
+    domain_id: '1',
+    domain_name: 'www.spareroom.co.uk',
+    offered_detail_url: '/flatshare/flatshare_detail.pl',
+    photos_domain: 'photos2.spareroom.co.uk',
+    photos_path: '/images/flatshare/listings',
+    sub_dir: 'flatshare',
+    static_files_server: 'https://assets.spareroom.co.uk',
+    base_url: 'https://www.spareroom.co.uk',
+    mobile: '',
+    my_account_directory: '/content/myaccount/myaccount-index/',
+    phone_number: '0161 768 1162',
+    phone_number_international: '+441617681162',
+    recaptcha_v2_site_key: '6LeSuHoUAAAAACke6m17h4SpcETSFZ4EOUVhufDl',
+    recaptcha_v3_site_key: '6LcZa20UAAAAACDnWTi-GfAeYp7feqNmb4GFL5AI',
+    cs_email: 'customerservices@spareroom.co.uk',
+    loginReturnPath:  '\x2Fflatshare\x2Fsearch\x2Epl',
+    registered_users:  '11',
+  };
+
+  _sr.config = {
+    facebook: {
+      app_locale: 'en_GB',
+      app_id: '5097577709',
+    },
+    worldpay : {
+      api_url : 'https://secure.worldpay.com/wcc/purchase',
+      use_sandbox : '0'
+    },
+    paypal : {
+      api_url : 'https://www.paypal.com/cgi-bin/webscr',
+      use_sandbox : '0'
+    },
+    
+      stripe: {
+        publishable_key: 'pk_live_ULPe0T07QEa1nYw9b9i6QFCs'
+      },
+    
+    features: {
+      apple_maps_desktop_detail: true,
+      apple_maps_mobile_detail: true,
+      apple_maps_desktop_search: true,
+      apple_maps_mobile_search: true,
+      use_apple_maps_viewings_desktop: true,
+      use_apple_maps_viewings_mobile: true,
+      featured_ads_auto_top_up: true,
+      winter_sale: false,
+      sort_buttons_mobile: true,
+      bulk_label: true,
+      prj_bulk_reply: true,
+      inline_reply: true,
+      notes_thread_view: true,
+      prj_messaging_headers: true,
+      arrange_viewings: false,
+      manage_labels: true,
+      blocking_reg_prompt: true,
+      one_minute_reg_prompt: true,
+      extra_listings: true,
+      promo_banner: true,
+      case_study_banner: false,
+      facebook_login_active: true,
+    },
+  };
+
+  _sr.action = {};
+  _sr.ecommerce = {};
+  _sr.experiments = {"upgrade_offerer_copy":"ZE6yqZvgSZuQv1lL4YwKOg","shared_interests_desktop":"YyS0uYtGRv-Es0sQ9FRBIw","post_ad_hidden_nav_desktop":"9K8JylP_TWiSpL9U71kgXw","message_quality_check_mob":"4D_i6iwYR26KDXmknAvtHQ","address_lookup_manual_link_mobile":"hE95vunmQX6sa7N4efQsQg","mob_post_ad_free_bold_step_bullet_pts_V2_control_changed":"aZIZIZv8T1GC1Mo8TT1hUA","continue_with_facebook_wanted_ads_mobile":"kRc09J79TbaPeiapVTlXLw","save_ads_lozenge":"2ENoSMEwQOGdM0-yT8rV1g","upgrade_seeker_copy_v2":"WEMX8xnGTGuMe-Mf80kptw","wanted_ad_promo_srp_mobile_logged_out":"tH2l5i76QJu89cKgpmbs1w","address_lookup_desktop":"x887H7SFQTSFJQv-o0cp5A","shared_interests_mobile":"fDJe_XnHSQCZtUFf49TCpg","reg_popup_5_clicks_srp":"wbLiRR6cRiq-Adgnzloq0A","video_upload_chunk_size":"2048kb","mobile_post_ad_free_bold_step":"SjeASFZrR9KXO5_CmlZskg","wanted_ad_promo_srp_desktop_logged_out":"6hFvCwfVQs6A2YVMYZc8Dw","continue_with_facebook_mobile":"CB0fEKxiTUuYG6-EsO4vJg","upgrade_benefits_mobile":"BbiN392xQqSuVcxBWoWyVw","continue_with_facebook":"tsvsbAafQXqWRl2yug09_Q","upgrade_to_contact_mobile":"ciYtV-wfSe-P6pnPCcrW2Q","upgrade_page_options":"RUj-2Y_nSfuQ-loL61RUNQ","mob_post_ad_free_bold_step_bullet_pts_V2":"Gv-QKhXWTOajU8BSsjidzw","dob_on_registration_mobile":"rNWYdgF3QximufCvfelx5A","mob_post_ad_free_bold_step_bullet_pts":"grBnWIWiSaeeXJ_b_o8-4w","place_ad_choose_options_mobile":"e-XTKpf9S2qJozvtDrOqJw","post_wanted_ad_benefits_mobile":"bbscvDhrTwuBRCKt0h6a1w","post_offered_step5_tip_redesign":"UM3St7gOQAmL4xxXRL9mFw","upgrade_to_contact_best_value_mobile":"89LSu3wyQWu3bGOH4ylHmg","offered_ad_shared_interests_desktop":"gSZhKGY9Q_aSLuxl2cNVLA","upgrade_seeker_copy":"euQrP0HjTtOIzaWm_N_a8w","removal_of_reg_popup_for_paid_users_mob":"oaQ-Wl44RjqmxfANuxabJg","offered_ad_shared_interests_mobile":"orVKQLl-QaGVi9RhXFkbWA","wanted_ad_promo_srp_mobile_logged_in":"Lf6bdVipTDyDILW3tV7dbw","sticky_contact_buttons":"vJfJVSCGQeWDRs1R4WyNZw","bulkreply_promo_desktop":"3j-fykUtSG-xzm9CxMq6xQ","payment_layout_mobile":"5ouLKCriTf-ELqqOVC1M1Q","continue_with_facebook_wanted_ads":"9FtihpbeQPWZ914J6poUIw","post_wanted_ad_benefits_desktop":"TH3CAWh3RP2Of0HSGBpztA","mobile_new_product_selector":"oQHRj5aoTsaMhlXzbXKjdA","bulkreply_promo_mobile":"07BBAEaKSceW8A0aGZhpAg","extra_listings_upgrade_mobile":"ytlO7PUrSZqvCI8lRpkA4w","message_quality_check_desktop":"DZOFo-EIQ0aQBIsBu_A29A","early_bird_vs_unlock_ads":"lwqa15ERTqam7mASjd_wHQ","confirmation_page_upgrade_moved_up":"Ok86gAc-Ro-iNI2FgCVyRA","photo_upload_chunk_size":220000,"extra_listings_desktop":"erL28o3PQSqFLAxCcyH9NA","mob_post_ad_free_bold_step_bullet_pts_V3":"uXlmwPcBSwuAF10zv0IZTA","upgrade_to_contact_narrow_stripe_button":"1iRN5vJkQ-KM_Sfi-1Qusw","promo_list_desktop":"00zddN7yQ2qccE85fY6TYQ","hide_show_interest_mobile":"3QVg1E0tQbKuDnByAvp6PA","desktop_post_ad_free_bold_step":"7Ecz8FR2SXO7llRgKJYrlA","dob_on_registration":"8xsKQtNNTD6ikNVGbjYvzw","reg_popup_ad_details_page_close":"HkwY5nu1ScaWfLCcLwMVMQ","wanted_ad_promo_srp_desktop_logged_in":"ZFDIfmupQySYGzwzV7OYgQ","two_registration_pop_ups":"jWLUhsqgRwKebwY0VYHQqA","tiled_upgrade_variation":"yFkijzsyTduIR4HQUGOBQA","srp_cards_mobile":"uag7dMg5RweqD_QpI6M3pg","address_lookup_mobile":"kvhI6X-yQC2mx3SZbfqPnQ","reg_page_aside_removal_desktop":"zFs4kkWST0iHKHta7U_4yQ","upgrade_to_contact_notifications":"orSpUXIaTJGO_DGPVKXaCQ","upgrade_offerer_copy_v2":"Hz7JzqOBSBWT1pqVXvmCEQ","tiled_variant_v3":"L3baqlUnTxqoVtY3ZBGdZA","description_divided":"1F-k2QROTci0mXj1Ou3fOA","reg_popup_5_clicks_srp_mob":"gYOgajRPQM2OkRwpoR7iYw","desktop_new_product_selector":"uSIFCTc5RJO3IreVmfiMfw","edit_ad_confirmation_upgrade":"de59YAaAT62BHBGOLnRMcA","mobile_inline_payment_form":"-vcObzFURxuP9pyLdYU_pA","mobile_show_upgrade_options_benefits":"f_YkB5wwTJu5Y24yxJVSlA","post_ad_hidden_nav_mobile":"0642PEjNQPerkiXcFdJN5A","post_offered_step5_character_count":"-pjWPTZuS8yVK16g1cRMDg","register_button_header_mob":"ofkl-VvoRbesjCSZqID1yg"};
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+  window.jQuery || document.write("<script src='\/\/assets.spareroom.co.uk\/js\/common\/jquery\/jquery-1.12.0.min.js'><\/script>");
+</script>
+<script>jQuery.noConflict();</script>  <script>
+    window.dataLayer = window._sr ? [window._sr] : [];
+    // Register Google Optimize Callback
+    // We unfortunately need this here to avoid compatibility issues with older browsers
+    function registerOptimizeCallback () {
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      if (
+        window.dataLayer &&
+        !!window.dataLayer.filter(function (event){ return event.event == 'optimize.callback'; })
+      ) {
+        gtag('event', 'optimize.callback', {
+          callback: function (value, name) {
+            return registerUserExperiments({ id: name, variation: value, first_seen: new Date().toISOString() });
+          }
+        });
+      }
+    };
+    // Store experiments in local storage
+    // StackJS will handle posting to an API when the user is logged in
+    function registerUserExperiments (experiment) {
+      try {
+        var experimentStorage = JSON.parse(localStorage.getItem('experiment-variation')) || [];
+        if (!experimentStorage.filter(function(item) { return item.id == experiment.id; }).length) {
+          experiment.recorded = false;
+          experimentStorage.push(experiment);
+        }
+        localStorage.setItem('experiment-variation', JSON.stringify(experimentStorage));
+      } catch(error){
+        // LocalStorage not available
+      }
+    };
+    registerOptimizeCallback();
+  </script>
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WFTS7MZ');</script>
+  <!-- End Google Tag Manager -->
+<link rel="stylesheet" href="https://assets.spareroom.co.uk/assets/780529708eb7c942fda55ba8cc0d85a7.css">    <link rel="stylesheet" href="/v2/build/css/global/style_stack.05c6309c81bbbea9af95.css">
+    <link rel="stylesheet" href="/v2/build/css/global/stack.cf4d204d30e35b874c90.css">
+<!--[if (gte IE 6)&(lte IE 8)]><script src="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]--><script src="https://assets.spareroom.co.uk/assets/e0c43c978ea516935f9ded8af409ac54.js"></script>  <link rel="canonical" href="https://www.spareroom.co.uk&#47;flatshare&#47;search&#46;pl">
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.spareroom.co.uk&#47;flatshare&#47;search&#46;pl">
+<link rel="shortcut icon" href="https://assets.spareroom.co.uk/favicon.png?v=1"><link rel="apple-touch-icon" href="https://assets.spareroom.co.uk/apple-touch-icon-precomposed.png?v=1"><link rel="android-touch-icon" href="https://assets.spareroom.co.uk/android-touch-icon.png?v=1">    <link rel="stylesheet" href="/v2/build/css/global/fontawesome.a70468699106fcb66013.css">
+    <link rel="stylesheet" href="/v2/build/css/components/auth/index.8b2151d799221aaf1cbc.css">
+    <title>SpareRoom - Find rooms for rent in shared accommodation</title>
+    <style>
+      input.rent-input {
+        box-sizing: border-box;
+        max-width: 60px;
+      }
+    </style>
+  </head>
+  <body class="PAGElistings" id="SUBPAGEadvancedsearch">
+    
+    
+      
+      
+  <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFTS7MZ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<header class="wrap base-header" data-overlay-name="search-box"><div id="flash-messaging"></div><div class="base-header__wrap"><a href="#spareroom" class="base-header__skip-link">Skip to content</a><a id="top" href="#top" class="trans-all-1s hidden" hidden>top</a><div class="brand-header" id="header"><div class="brand-header__content"><div class="brand-header__logo-wrapper"><a href="https://www.spareroom.co.uk" id="homeLogo" class="brand-header__logo-link" data-ga-event-category="Home Links" data-ga-event-action="clicked" data-ga-event-label="header-SR-logo"><img src="/v2/img/logos/SpareRoom_header_logo.svg?v=1" class="svg brand-header__logo" alt="SpareRoom Logo" width="248" height="51.66" importance="high"></a></div><div class="brand-header__middle-modals"><div class="locale-choice" data-overlay-close-exempt="true">
+  <button aria-expanded="false" aria-controls="countryChoiceNav" aria-label="You are on the UK site. Change country." class="locale-choice__click" data-overlay-target="country-code" data-overlay-type="dropDown"><img src="/v2/img/icons/flags/en-GB.svg?v=1" class="svg locale-choice__flag" alt="en-GB" width="21" height="15"><span class="locale-choice__code">UK</span><i class="far fa-chevron-down locale-choice__caret-down"></i></button><aside id="countryChoiceNav" class="locale-choice__modal hidden-overlay" data-overlay-name="country-code">
+    <form class="locale-choice__form" method="post" action="/" id="country_id_form">
+        <fieldset><legend class="locale-choice__legend">In which country are you looking?</legend><!--
+        --><label class="locale-choice__label"><input type="radio" name="country_id" value="1" data-website="https://www.spareroom.co.uk/" class="locale-choice__radio" checked>UK</label><!--
+        --><label class="locale-choice__label"><input type="radio" name="country_id" value="2" data-website="https://www.spareroom.com/roommates" class="locale-choice__radio" >US</label></fieldset><!--
+        --><button type="submit" class="button button--wide">Save</button>
+    </form>
+  </aside>
+</div><div class="brand-header__support" data-overlay-close-exempt="true">
+  <button aria-expanded="false" aria-controls="supportNav" aria-label="Contact our support team" id="supportButtontNav" class="brand-header__support-button" data-overlay-target="support" data-overlay-type="dropDown">Support <i class="far fa-chevron-down brand-header__support-button-caret"></i></button>
+  <nav id="supportNav" class="brand-header__support-nav hidden-overlay" data-overlay-name="support"><!--
+    --><a class="brand-header__support-link" href="/contact.pl">Contact us online</a><!--
+    --><p class="brand-header__support-text">Or call <a class="brand-header__support-phone-number" href="tel:+441617681162"> 0161 768 1162</a><br>Mon to Fri: 9am &ndash; 8.30pm<br>Weekends: 10am &ndash; 7.30pm    </p>
+    
+  </nav>
+</div></div><div class="authentication-links authentication-links--buttons">
+  <div class="authentication-links__register-link">
+    <a class="button" href="/flatshare/reg.pl?loginfrom_url=%2Fflatshare%2Fsearch.pl" id="registerButtonNav" title="Create an account">Register</a>
+  </div>
+  <div class="authentication-links__sign-in-link">
+    <a href="/flatshare/logon.pl?loginfrom_url=%2Fflatshare%2Fsearch.pl" id="loginButtonNav" class="button button--action show-user-auth-popup">Log in</a>
+  </div>
+</div>
+<div id="authenticationLinks" class="authentication-links">
+  <a id="registerLinkNav" class="authentication-links__register-link" href="/flatshare/reg.pl?loginfrom_url=%2Fflatshare%2Fsearch.pl" title="Create an account">Register</a>
+  <a id="loginLinkNav" href="/flatshare/logon.pl?loginfrom_url=%2Fflatshare%2Fsearch.pl" class="authentication-links__sign-in-link show-user-auth-popup">Log in</a>
+</div>
+</div></div>
+
+
+<nav id="navBar" class="nav-bar">
+  <div class="nav-bar__menus">
+    <ul class="nav-bar__menu nav-bar__menu--left">
+      <li class="nav-bar__menu-item">
+        <a href="/flatshare/search.pl"  id="searchNav" title="Search SpareRoom for a property or tenant" class="nav-bar__link nav-bar__link--search nav-bar__link--selected" >
+          <span class="nav-bar__link-text">Search</span>
+        </a>
+      </li>
+      
+          <li class="nav-bar__menu-item">
+    <a href="/flatshare-house-share/uk/"  id="browseNav" title="Rooms for rent in your area" class="nav-bar__link nav-bar__link--browse">
+      <span class="nav-bar__link-text">Browse</span>
+    </a>
+  </li>
+
+      
+        <li class="nav-bar__menu-item">
+    <a href="/content/placeditadvert/choose-section-new/" id="postAdNav" title="Place your wanted or need property advert for free" class="nav-bar__link nav-bar__link--placeAd">
+      <span class="nav-bar__link-text">Post ad</span>
+    </a>
+  </li>
+
+      <li class="nav-bar__menu-item">
+        <a href="/content/myaccount/myaccount-index/"  id="myAccountNav" title="Your SpareRoom account area" class="nav-bar__link nav-bar__link--myAccount">
+          <span class="nav-bar__link-text">Account</span>
+        </a>
+      </li>
+    </ul>
+        <ul class="nav-bar__menu nav-bar__menu--right">
+          
+            <li class="nav-bar__menu-item">
+              <a href="/content/about-us/about-spareroom/"  id="aboutUsNav" title="About us" class="nav-bar__link nav-bar__link--aboutUs">
+                <span class="nav-bar__link-text">About us</span>
+              </a>
+            </li>
+          
+          
+            <li class="nav-bar__menu-item">
+              <a href="/content/info-advice/info-and-advice/"  id="infoAndAdviceNav" title="Info and advice overview" class="nav-bar__link nav-bar__link--info">
+               <span class="nav-bar__link-text">Info & advice</span>
+              </a>
+            </li>
+          
+        </ul>
+  </div>
+</nav>
+
+
+<nav class="sub-nav mySearch"><ul class="sub-nav__menu"><li class="sub-nav__menu-item"><a class="selected" id="mySearchNav" title="Search results" href="/flatshare/search.pl">My search</a></li><li class="sub-nav__menu-item"><a class="savedOffered" id="savedOfferedNav" title="Saved flat/house share ads" href="/flatshare/?filter=shortlist&amp;flatshare_type=offered">Saved flatshare ads</a></li><li class="sub-nav__menu-item"><a class="savedWanted" id="savedWantedNav" title="Saved flatmate ads" href="/flatshare/rooms_wanted.pl?filter=shortlist&amp;flatshare_type=wanted">Saved flatmate ads</a></li></ul></nav></div></header>
+      
+    
+    <main id="spareroom" class="wrap wrap--main">
+      <div class="grid-4-8-4" id="mainheader"><div>&nbsp;</div><div><h1>Search for a Room or Flatmate</h1></div><div>&nbsp;</div></div>      <div class="grid-4-8-4">
+        <aside>
+	<div class="block block_standard" id="findbox">
+		<div class="block_header">
+			<h3>Find an ad</h3>
+		</div>
+		<form action="/flatshare/propertyref.pl" method="GET" class="block_content">
+      <div class="advert-ref-search">
+        <label class="advert-ref-search__label" for="findid">Advert ref#</label>
+        <input aria-label="Search using advert reference" type="text" class="textbox" name="advert_id" id="findid"><button class="button button--secondary" type="Submit">Go</button>
+      </div>
+		</form>
+	</div>
+        </aside>
+        <div id="maincontent">
+
+  <div class="panel-tab">
+    <a href="/flatshare/search.pl?searchtype=simple"
+      class="panel-tab__tab  tab-active">Basic search</a>
+    <a href="/flatshare/search.pl?searchtype=advanced"
+      class="panel-tab__tab ">Advanced search</a>
+  </div>
+
+<form class="form-simple-or-advanced-search  " action="/flatshare/search.pl" method="GET" name="search_simple" id="pageSearchForm" data-store-search>
+  
+  
+
+
+  <fieldset class="fieldset">
+    <legend class="form_legend form_legend--first  form_legend_search">Search for a Room or Flatmate</legend>
+    <div class="form_row form_row_search_for ">
+      <div class="form_label">Search for</div>
+      <div class="form_inputs">
+          <label class="form_input form_radio" title="Search for rooms to rent">
+            <input type="radio" name="flatshare_type" CHECKED  value="offered" data-search_config="offered">
+            Rooms for rent
+          </label>
+        <label class="form_input form_radio" title="Search for rooms wanted">
+          <input type="radio" name="flatshare_type" value="wanted" data-search_config="wanted">
+          Rooms wanted
+        </label>
+          
+          <span class="form_input form_radio">
+            <label>
+              <input type="radio" name="flatshare_type" value="buddyup" data-search_config="buddyup" title="Search for buddy ups">
+              Buddy ups
+            </label>
+<span class="tooltip buddyUp" tabindex="-1">&nbsp;<i class="fas fa-info-circle"></i><span class="tooltip_box"><span class="tooltip_text">Find potential buddy ups to share this property with <a href="/content/info-faq/buddyups/" title="Find out more about BuddyUps">Find out more &raquo;</a></span><span class="tooltip_arrow">&nbsp;</span></span><span class="tooltip_background" tabindex="-1"></span></span>            </span>
+      </div>
+    </div>
+      <div class="form_row form_row_search_by ">
+        <div class="form_label">Search by</div>
+        <div class="form_inputs">
+          <label class="form_input form_radio" title="Search by location">
+            <input type="radio" name="location_type" CHECKED  value="area" data-search_config="area">
+            Location
+          </label>
+            <label class="form_input form_radio" title="Search by London travel zones">
+              <input type="radio" name="location_type" value="zone" data-search_config="zone">
+              London travel zones
+            </label>
+            <label class="form_input form_radio" title="Search by London tube line">
+              <input type="radio" name="location_type" value="tube" data-search_config="tube">
+              London tube line
+            </label>
+            <label class="form_input form_radio" title="Search by commute duration">
+              <input type="radio" name="location_type" value="commuter" data-search_config="commuter">
+              Commute duration
+            </label>
+        </div>
+      </div>
+    <div class="form_row form_row_area">
+      <label class="form_label  " for="search_by_location_field">Search by location</label>
+      <div class="form_inputs" >
+        
+          <span class="form_input form_text">
+            <input type="text" name="search" id="search_by_location_field" size="30" value="" placeholder="Area or postcode" pattern=".*" required="" data-store-search-text autocomplete="off">
+          </span>
+        
+        
+        
+          
+      </div>
+    </div>
+      <div class="form_row form_row_zone">
+        <label class="form_label" for="min-zone">Search by London travel zones</label>
+        <div class="form_inputs">
+          Between zone
+          <span class="form_input form_select">
+            <select name="min_zone" id="min-zone">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </span>
+          <span class="form_text_separator">and</span>
+          <span class="form_input form_select">
+            <select name="max_zone">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+
+          </span>
+        </div>
+      </div>
+      <div class="form_row form_row_tube">
+        <label class="form_label" for="tube-line">Search by London tube line</label>
+        <div class="form_inputs">
+          <span class="form_input form_select">
+            <select name="tube_line" id="tube-line">
+              <option value="" SELECTED >choose tube line</option>
+										<option value="Bakerloo Line">Bakerloo Line</option>
+										<option value="Central Line">Central Line</option>
+										<option value="Circle Line">Circle Line</option>
+										<option value="District Line">District Line</option>
+										<option value="Docklands Light Railway">Docklands Light Railway</option>
+										<option value="Elizabeth Line">Elizabeth Line</option>
+										<option value="Hammersmith and City Line">Hammersmith and City Line</option>
+										<option value="Jubilee Line">Jubilee Line</option>
+										<option value="London Overground">London Overground</option>
+										<option value="Metropolitan Line">Metropolitan Line</option>
+										<option value="Northern Line">Northern Line</option>
+										<option value="Piccadilly Line">Piccadilly Line</option>
+										<option value="Victoria Line">Victoria Line</option>            </select>
+          </span>
+        </div>
+      </div>
+      <div class="form_row form_row_commuter">
+        <label class="form_label" for="max-commute-time">Search by commute duration</label>
+        <div class="form_inputs">
+          within
+          <span class="form_input form_select">
+            <select name="max_commute_time" id="max-commute-time">
+              <option value="10">10</option>
+              <option value="20" SELECTED >20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+            </select>
+          </span>
+          mins commute from
+          <span class="form_input form_select">
+            <select name="station_id">
+              <option value="" SELECTED >Choose station</option>
+              
+                <option value="ABBEYROAD">Abbey Road</option>
+              
+                <option value="ACTONCENTRAL">Acton Central</option>
+              
+                <option value="ACTONTOWN">Acton Town</option>
+              
+                <option value="ALDGATE">Aldgate</option>
+              
+                <option value="ALDGATEEAST">Aldgate East</option>
+              
+                <option value="ALLSAINTS">All Saints</option>
+              
+                <option value="ALPERTON">Alperton</option>
+              
+                <option value="AMERSHAM">Amersham</option>
+              
+                <option value="ANERLEY">Anerley</option>
+              
+                <option value="ANGEL">Angel</option>
+              
+                <option value="ARCHWAY">Archway</option>
+              
+                <option value="ARNOSGROVE">Arnos Grove</option>
+              
+                <option value="BAKERSTREET">Baker Street</option>
+              
+                <option value="BALHAM">Balham</option>
+              
+                <option value="BANKMONUMENT">Bank / Monument</option>
+              
+                <option value="BARBICAN">Barbican</option>
+              
+                <option value="BARKING">Barking</option>
+              
+                <option value="BARKINGSIDE">Barkingside</option>
+              
+                <option value="BARONSCOURT">Barons Court</option>
+              
+                <option value="BATTERSEAPOWERSTATION">Battersea Power Station</option>
+              
+                <option value="BAYSWATER">Bayswater</option>
+              
+                <option value="BECKTON">Beckton</option>
+              
+                <option value="BECKTONPARK">Beckton Park</option>
+              
+                <option value="BECONTREE">Becontree</option>
+              
+                <option value="BELSIZEPARK">Belsize Park</option>
+              
+                <option value="BERMONDSEY">Bermondsey</option>
+              
+                <option value="BETHNALGREEN2">Bethnal Green</option>
+              
+                <option value="BLACKFRIARS">Blackfriars</option>
+              
+                <option value="BLACKHORSEROAD">Blackhorse Road</option>
+              
+                <option value="BLACKWALL">Blackwall</option>
+              
+                <option value="BONDSTREET">Bond Street</option>
+              
+                <option value="BOROUGH">Borough</option>
+              
+                <option value="BOSTONMANOR">Boston Manor</option>
+              
+                <option value="BOUNDSGREEN">Bounds Green</option>
+              
+                <option value="BOWCHURCH">Bow Church</option>
+              
+                <option value="BOWROAD">Bow Road</option>
+              
+                <option value="BRENTCROSS">Brent Cross</option>
+              
+                <option value="BRIXTONSTATION">Brixton</option>
+              
+                <option value="BROCKLEY">Brockley</option>
+              
+                <option value="BROMLEYBYBOW">Bromley-by-Bow</option>
+              
+                <option value="BRONDESBURY">Brondesbury</option>
+              
+                <option value="BRONDESBURYPARK">Brondesbury Park</option>
+              
+                <option value="BRUCEGROVE">Bruce Grove</option>
+              
+                <option value="BUCKHURSTHILL">Buckhurst Hill</option>
+              
+                <option value="BURNTOAK">Burnt Oak</option>
+              
+                <option value="BUSHEY">Bushey</option>
+              
+                <option value="CALEDONIANROAD">Caledonian Road</option>
+              
+                <option value="CALEDONIANROADBARNSBURY">Caledonian Road & Barnsbury</option>
+              
+                <option value="CAMDENROAD">Camden Road</option>
+              
+                <option value="CAMDENTOWN">Camden Town</option>
+              
+                <option value="CANADAWATER">Canada Water</option>
+              
+                <option value="CANARYWHARF">Canary Wharf</option>
+              
+                <option value="CANNINGTOWN">Canning Town</option>
+              
+                <option value="CANNONSTREET">Cannon Street</option>
+              
+                <option value="CANONBURY">Canonbury</option>
+              
+                <option value="CANONSPARK">Canons Park</option>
+              
+                <option value="CARPENDERSPARK">Carpenders Park</option>
+              
+                <option value="CHALFONTLATIMER">Chalfont & Latimer</option>
+              
+                <option value="CHALKFARM">Chalk Farm</option>
+              
+                <option value="CHANCERYLANE">Chancery Lane</option>
+              
+                <option value="CHARINGCROSS">Charing Cross</option>
+              
+                <option value="CHESHAM">Chesham</option>
+              
+                <option value="CHIGWELL">Chigwell</option>
+              
+                <option value="CHISWICKPARK">Chiswick Park</option>
+              
+                <option value="CHORLEYWOOD">Chorleywood</option>
+              
+                <option value="CLAPHAMCOMMON">Clapham Common</option>
+              
+                <option value="CLAPHAMHIGHSTREET">Clapham High Street</option>
+              
+                <option value="CLAPHAMJUNCTION">Clapham Junction</option>
+              
+                <option value="CLAPHAMNORTH">Clapham North</option>
+              
+                <option value="CLAPHAMSOUTH">Clapham South</option>
+              
+                <option value="COCKFOSTERS">Cockfosters</option>
+              
+                <option value="COLINDALE">Colindale</option>
+              
+                <option value="COLLIERSWOOD">Colliers Wood</option>
+              
+                <option value="COVENTGARDEN">Covent Garden</option>
+              
+                <option value="CROSSHARBOUR">Crossharbour</option>
+              
+                <option value="CROUCHHILL">Crouch Hill</option>
+              
+                <option value="CROXLEY">Croxley</option>
+              
+                <option value="CRYSTALPALACE">Crystal Palace</option>
+              
+                <option value="CUSTOMHOUSE">Custom House</option>
+              
+                <option value="CUTTYSARK">Cutty Sark</option>
+              
+                <option value="CYPRUS">Cyprus</option>
+              
+                <option value="DAGENHAMEAST">Dagenham East</option>
+              
+                <option value="DAGENHAMHEATHWAY">Dagenham Heathway</option>
+              
+                <option value="DALSTONJUNCTION">Dalston Junction</option>
+              
+                <option value="DALSTONKINGSLAND">Dalston Kingsland</option>
+              
+                <option value="DEBDEN">Debden</option>
+              
+                <option value="DENMARKHILL">Denmark Hill</option>
+              
+                <option value="DEPTFORDBRIDGE">Deptford Bridge</option>
+              
+                <option value="DEVONSROAD">Devons Road</option>
+              
+                <option value="DOLLISHILL">Dollis Hill</option>
+              
+                <option value="EALINGBROADWAY">Ealing Broadway</option>
+              
+                <option value="EALINGCOMMON">Ealing Common</option>
+              
+                <option value="EARLSCOURT">Earl's Court</option>
+              
+                <option value="EASTACTON">East Acton</option>
+              
+                <option value="EASTFINCHLEY">East Finchley</option>
+              
+                <option value="EASTHAM">East Ham</option>
+              
+                <option value="EASTINDIA">East India</option>
+              
+                <option value="EASTPUTNEY">East Putney</option>
+              
+                <option value="EASTCOTE">Eastcote</option>
+              
+                <option value="EDGWARE">Edgware</option>
+              
+                <option value="EDGWAREROAD">Edgware Road</option>
+              
+                <option value="ELEPHANTCASTLE">Elephant & Castle</option>
+              
+                <option value="ELMPARK">Elm Park</option>
+              
+                <option value="ELVERSONROAD">Elverson Road</option>
+              
+                <option value="EMBANKMENT">Embankment</option>
+              
+                <option value="EPPING">Epping</option>
+              
+                <option value="EUSTON">Euston</option>
+              
+                <option value="EUSTONSQUARE">Euston Square</option>
+              
+                <option value="FAIRLOP">Fairlop</option>
+              
+                <option value="FARRINGDON">Farringdon</option>
+              
+                <option value="FINCHLEYCENTRAL">Finchley Central</option>
+              
+                <option value="FINCHLEYROAD">Finchley Road</option>
+              
+                <option value="FINCHLEYROADFROGNAL">Finchley Road & Frognal</option>
+              
+                <option value="FINSBURYPARK">Finsbury Park</option>
+              
+                <option value="FORESTHILL">Forest Hill</option>
+              
+                <option value="FULHAMBROADWAY">Fulham Broadway</option>
+              
+                <option value="GALLIONSREACH">Gallions Reach</option>
+              
+                <option value="GANTSHILL">Gants Hill</option>
+              
+                <option value="GLOUCESTERROAD">Gloucester Road</option>
+              
+                <option value="GOLDERSGREEN">Golders Green</option>
+              
+                <option value="GOLDHAWKROAD">Goldhawk Road</option>
+              
+                <option value="GOODGESTREET">Goodge Street</option>
+              
+                <option value="GOSPELOAK">Gospel Oak</option>
+              
+                <option value="GRANGEHILL">Grange Hill</option>
+              
+                <option value="GREATPORTLANDSTREET">Great Portland Street</option>
+              
+                <option value="GREENPARK">Green Park</option>
+              
+                <option value="GREENFORD">Greenford</option>
+              
+                <option value="GUNNERSBURY">Gunnersbury</option>
+              
+                <option value="HACKNEYCENTRAL">Hackney Central</option>
+              
+                <option value="HACKNEYWICK">Hackney Wick</option>
+              
+                <option value="HAGGERSTON">Haggerston</option>
+              
+                <option value="HAINAULT">Hainault</option>
+              
+                <option value="HAMMERSMITH">Hammersmith</option>
+              
+                <option value="HAMPSTEAD">Hampstead</option>
+              
+                <option value="HAMPSTEADHEATH">Hampstead Heath</option>
+              
+                <option value="HANGERLANE">Hanger Lane</option>
+              
+                <option value="HARLESDEN">Harlesden</option>
+              
+                <option value="HARRINGAYGREENLANES">Harringay Green Lanes</option>
+              
+                <option value="HARROWANDWEALDSTONE">Harrow and Wealdstone</option>
+              
+                <option value="HARROWONTHEHILL">Harrow-on-the-Hill</option>
+              
+                <option value="HATCHEND">Hatch End</option>
+              
+                <option value="HATTONCROSS">Hatton Cross</option>
+              
+                <option value="HEADSTONELANE">Headstone Lane</option>
+              
+                <option value="HEATHROW">Heathrow</option>
+              
+                <option value="HENDONCENTRAL">Hendon Central</option>
+              
+                <option value="HERONQUAYS">Heron Quays</option>
+              
+                <option value="HIGHBARNET">High Barnet</option>
+              
+                <option value="HIGHSTREETKENSINGTON">High Street Kensington</option>
+              
+                <option value="HIGHBURYISLINGTON">Highbury & Islington</option>
+              
+                <option value="HIGHGATE">Highgate</option>
+              
+                <option value="HILLINGDON">Hillingdon</option>
+              
+                <option value="HOLBORN">Holborn</option>
+              
+                <option value="HOLLANDPARK">Holland Park</option>
+              
+                <option value="HOLLOWAYROAD">Holloway Road</option>
+              
+                <option value="HOMERTON">Homerton</option>
+              
+                <option value="HONOROAKPARK">Honor Oak Park</option>
+              
+                <option value="HORNCHURCH">Hornchurch</option>
+              
+                <option value="HOUNSLOWCENTRAL">Hounslow Central</option>
+              
+                <option value="HOUNSLOWEAST">Hounslow East</option>
+              
+                <option value="HOUNSLOWWEST">Hounslow West</option>
+              
+                <option value="HOXTON">Hoxton</option>
+              
+                <option value="HYDEPARKCORNER">Hyde Park Corner</option>
+              
+                <option value="ICKENHAM">Ickenham</option>
+              
+                <option value="IMPERIALWHARF">Imperial Wharf</option>
+              
+                <option value="ISLANDGARDENS">Island Gardens</option>
+              
+                <option value="KENNINGTON">Kennington</option>
+              
+                <option value="KENSALGREEN">Kensal Green</option>
+              
+                <option value="KENSALRISE">Kensal Rise</option>
+              
+                <option value="KENSINGTONOLYMPIA">Kensington (Olympia)</option>
+              
+                <option value="KENTISHTOWN">Kentish Town</option>
+              
+                <option value="KENTISHTOWNWEST">Kentish Town West</option>
+              
+                <option value="KENTON">Kenton</option>
+              
+                <option value="KEWGARDENS">Kew Gardens</option>
+              
+                <option value="KILBURN">Kilburn</option>
+              
+                <option value="KILBURNHIGHROAD">Kilburn High Road</option>
+              
+                <option value="KILBURNPARK">Kilburn Park</option>
+              
+                <option value="KINGGEORGEV">King George V</option>
+              
+                <option value="KINGSCROSSSTPANCRAS">King's Cross / St. Pancras</option>
+              
+                <option value="KINGSBURY">Kingsbury</option>
+              
+                <option value="KNIGHTSBRIDGE">Knightsbridge</option>
+              
+                <option value="LADBROKEGROVE">Ladbroke Grove</option>
+              
+                <option value="LAMBETHNORTH">Lambeth North</option>
+              
+                <option value="LANCASTERGATE">Lancaster Gate</option>
+              
+                <option value="LANGDONPARK">Langdon Park</option>
+              
+                <option value="LATIMERROAD">Latimer Road</option>
+              
+                <option value="LEICESTERSQUARE">Leicester Square</option>
+              
+                <option value="LEWISHAM">Lewisham</option>
+              
+                <option value="LEYTON">Leyton</option>
+              
+                <option value="LEYTONMIDLANDROAD">Leyton Midland Road</option>
+              
+                <option value="LEYTONSTONE">Leytonstone</option>
+              
+                <option value="LEYTONSTONEHIGHROAD">Leytonstone High Road</option>
+              
+                <option value="LIMEHOUSE">Limehouse</option>
+              
+                <option value="LIVERPOOLSTREET">Liverpool Street</option>
+              
+                <option value="LONDONBRIDGE">London Bridge</option>
+              
+                <option value="LONDONCITYAIRPORT">London City Airport</option>
+              
+                <option value="LOUGHTON">Loughton</option>
+              
+                <option value="MAIDAVALE">Maida Vale</option>
+              
+                <option value="MANORHOUSE">Manor House</option>
+              
+                <option value="MANSIONHOUSE">Mansion House</option>
+              
+                <option value="MARBLEARCH">Marble Arch</option>
+              
+                <option value="MARYLEBONE">Marylebone</option>
+              
+                <option value="MILEEND">Mile End</option>
+              
+                <option value="MILLHILLEAST">Mill Hill East</option>
+              
+                <option value="MOORPARK">Moor Park</option>
+              
+                <option value="MOORGATE">Moorgate</option>
+              
+                <option value="MORDEN">Morden</option>
+              
+                <option value="MORNINGTONCRESCENT">Mornington Crescent</option>
+              
+                <option value="MUDCHUTE">Mudchute</option>
+              
+                <option value="NEASDEN">Neasden</option>
+              
+                <option value="NEWCROSS">New Cross</option>
+              
+                <option value="NEWCROSSGATE">New Cross Gate</option>
+              
+                <option value="NEWBURYPARK">Newbury Park</option>
+              
+                <option value="NINEELMS">Nine Elms</option>
+              
+                <option value="NORTHACTON">North Acton</option>
+              
+                <option value="NORTHEALING">North Ealing</option>
+              
+                <option value="NORTHGREENWICH">North Greenwich</option>
+              
+                <option value="NORTHHARROW">North Harrow</option>
+              
+                <option value="NORTHWEMBLEY">North Wembley</option>
+              
+                <option value="NORTHFIELDS">Northfields</option>
+              
+                <option value="NORTHOLT">Northolt</option>
+              
+                <option value="NORTHWICKPARK">Northwick Park</option>
+              
+                <option value="NORTHWOOD">Northwood</option>
+              
+                <option value="NORTHWOODHILLS">Northwood Hills</option>
+              
+                <option value="NORWOODJUNCTION">Norwood Junction</option>
+              
+                <option value="NOTTINGHILLGATE">Notting Hill Gate</option>
+              
+                <option value="OAKWOOD">Oakwood</option>
+              
+                <option value="OLDSTREET">Old Street</option>
+              
+                <option value="OSTERLEY">Osterley</option>
+              
+                <option value="OVAL">Oval</option>
+              
+                <option value="OXFORDCIRCUS">Oxford Circus</option>
+              
+                <option value="PADDINGTON">Paddington</option>
+              
+                <option value="PARKROYAL">Park Royal</option>
+              
+                <option value="PARSONSGREEN">Parsons Green</option>
+              
+                <option value="PECKHAMRYE">Peckham Rye</option>
+              
+                <option value="PENGEWEST">Penge West</option>
+              
+                <option value="PERIVALE">Perivale</option>
+              
+                <option value="PICCADILLYCIRCUS">Piccadilly Circus</option>
+              
+                <option value="PIMLICO">Pimlico</option>
+              
+                <option value="PINNER">Pinner</option>
+              
+                <option value="PLAISTOW">Plaistow</option>
+              
+                <option value="PONTOONDOCK">Pontoon Dock</option>
+              
+                <option value="POPLAR">Poplar</option>
+              
+                <option value="PRESTONROAD">Preston Road</option>
+              
+                <option value="PRINCEREGENT">Prince Regent</option>
+              
+                <option value="PUDDINGMILLANE">Pudding Mill Lane</option>
+              
+                <option value="PUTNEYBRIDGE">Putney Bridge</option>
+              
+                <option value="QUEENSPARK">Queen's Park</option>
+              
+                <option value="QUEENSROADPECKHAM">Queens Road Peckham</option>
+              
+                <option value="QUEENSBURY">Queensbury</option>
+              
+                <option value="QUEENSWAY">Queensway</option>
+              
+                <option value="RAVENSCOURTPARK">Ravenscourt Park</option>
+              
+                <option value="RAYNERSLANE">Rayners Lane</option>
+              
+                <option value="REDBRIDGE">Redbridge</option>
+              
+                <option value="REGENTSPARK">Regent's Park</option>
+              
+                <option value="RICHMOND">Richmond</option>
+              
+                <option value="RICKMANSWORTH">Rickmansworth</option>
+              
+                <option value="RODINGVALLEY">Roding Valley</option>
+              
+                <option value="ROTHERHITHE">Rotherhithe</option>
+              
+                <option value="ROYALALBERT">Royal Albert</option>
+              
+                <option value="ROYALOAK">Royal Oak</option>
+              
+                <option value="ROYALVICTORIA">Royal Victoria</option>
+              
+                <option value="RUISLIP">Ruislip</option>
+              
+                <option value="RUISLIPGARDENS">Ruislip Gardens</option>
+              
+                <option value="RUISLIPMANOR">Ruislip Manor</option>
+              
+                <option value="RUSSELLSQUARE">Russell Square</option>
+              
+                <option value="SEVENSISTERS">Seven Sisters</option>
+              
+                <option value="SHADWELL">Shadwell</option>
+              
+                <option value="SHEPHERDSBUSH">Shepherd's Bush</option>
+              
+                <option value="SHEPHERDSBUSH2">Shepherd's Bush Market</option>
+              
+                <option value="SHOREDITCH">Shoreditch High Street</option>
+              
+                <option value="SLOANESQUARE">Sloane Square</option>
+              
+                <option value="SNARESBROOK">Snaresbrook</option>
+              
+                <option value="SOUTHACTON">South Acton</option>
+              
+                <option value="SOUTHEALING">South Ealing</option>
+              
+                <option value="SOUTHHAMPSTEAD">South Hampstead</option>
+              
+                <option value="SOUTHHARROW">South Harrow</option>
+              
+                <option value="SOUTHKENSINGTON">South Kensington</option>
+              
+                <option value="SOUTHKENTON">South Kenton</option>
+              
+                <option value="SOUTHQUAY">South Quay</option>
+              
+                <option value="SOUTHRUISLIP">South Ruislip</option>
+              
+                <option value="SOUTHTOTTENHAM">South Tottenham</option>
+              
+                <option value="SOUTHWIMBLEDON">South Wimbledon</option>
+              
+                <option value="SOUTHWOODFORD">South Woodford</option>
+              
+                <option value="SOUTHFIELDS">Southfields</option>
+              
+                <option value="SOUTHGATESTATION">Southgate</option>
+              
+                <option value="SOUTHWARK">Southwark</option>
+              
+                <option value="STJAMESSPARK">St. James's Park</option>
+              
+                <option value="STJOHNSWOOD">St. John's Wood</option>
+              
+                <option value="STPAULS">St. Paul's</option>
+              
+                <option value="STAMFORDBROOK">Stamford Brook</option>
+              
+                <option value="STANMORE">Stanmore</option>
+              
+                <option value="STARLANE">Star Lane</option>
+              
+                <option value="STEPNEYGREEN">Stepney Green</option>
+              
+                <option value="STOCKWELL">Stockwell</option>
+              
+                <option value="STONEBRIDGEPARK">Stonebridge Park</option>
+              
+                <option value="STRATFORD">Stratford</option>
+              
+                <option value="STRATFORDHIGHSTREET">Stratford High Street</option>
+              
+                <option value="STRATFORDINTERNATIONAL">Stratford International</option>
+              
+                <option value="SUDBURYHILL">Sudbury Hill</option>
+              
+                <option value="SUDBURYTOWN">Sudbury Town</option>
+              
+                <option value="SURREYQUAYS">Surrey Quays</option>
+              
+                <option value="SWISSCOTTAGE">Swiss Cottage</option>
+              
+                <option value="SYDENHAM">Sydenham</option>
+              
+                <option value="TEMPLE">Temple</option>
+              
+                <option value="THEYDONBOIS">Theydon Bois</option>
+              
+                <option value="TOOTINGBEC">Tooting Bec</option>
+              
+                <option value="TOOTINGBROADWAY">Tooting Broadway</option>
+              
+                <option value="TOTTENHAMCOURTROAD">Tottenham Court Road</option>
+              
+                <option value="TOTTENHAMHALE">Tottenham Hale</option>
+              
+                <option value="TOTTERIDGEWHETSTONE">Totteridge & Whetstone</option>
+              
+                <option value="TOWERGATEWAY">Tower Gateway</option>
+              
+                <option value="TOWERHILL">Tower Hill</option>
+              
+                <option value="TUFNELLPARK">Tufnell Park</option>
+              
+                <option value="TURNHAMGREEN">Turnham Green</option>
+              
+                <option value="TURNPIKELANE">Turnpike Lane</option>
+              
+                <option value="UPMINSTER">Upminster</option>
+              
+                <option value="UPMINSTERBRIDGE">Upminster Bridge</option>
+              
+                <option value="UPNEY">Upney</option>
+              
+                <option value="UPPERHOLLOWAY">Upper Holloway</option>
+              
+                <option value="UPTONPARK">Upton Park</option>
+              
+                <option value="UXBRIDGE">Uxbridge</option>
+              
+                <option value="VAUXHALL">Vauxhall</option>
+              
+                <option value="VICTORIA">Victoria</option>
+              
+                <option value="WALTHAMSTOWCENTRAL">Walthamstow Central</option>
+              
+                <option value="WALTHAMSTOWQUEENSROAD">Walthamstow Queen's Road</option>
+              
+                <option value="WANDSWORTHROAD">Wandsworth Road</option>
+              
+                <option value="WANSTEAD">Wanstead</option>
+              
+                <option value="WANSTEADPARK">Wanstead Park</option>
+              
+                <option value="WAPPING">Wapping</option>
+              
+                <option value="WARRENSTREET">Warren Street</option>
+              
+                <option value="WARWICKAVENUE">Warwick Avenue</option>
+              
+                <option value="WATERLOO">Waterloo</option>
+              
+                <option value="WATFORD">Watford</option>
+              
+                <option value="WATFORDHIGHSTREET">Watford High Street</option>
+              
+                <option value="WATFORDJUNCTION">Watford Junction</option>
+              
+                <option value="WEMBLEYCENTRAL">Wembley Central</option>
+              
+                <option value="WEMBLEYPARK">Wembley Park</option>
+              
+                <option value="WESTACTON">West Acton</option>
+              
+                <option value="WESTBROMPTON">West Brompton</option>
+              
+                <option value="WESTCROYDON">West Croydon</option>
+              
+                <option value="WESTFINCHLEY">West Finchley</option>
+              
+                <option value="WESTHAM">West Ham</option>
+              
+                <option value="WESTHAMPSTEAD">West Hampstead</option>
+              
+                <option value="WESTHARROW">West Harrow</option>
+              
+                <option value="WESTINDIAQUAY">West India Quay</option>
+              
+                <option value="WESTKENSINGTON">West Kensington</option>
+              
+                <option value="WESTRUISLIP">West Ruislip</option>
+              
+                <option value="WESTSILVERTOWN">West Silvertown</option>
+              
+                <option value="WESTBOURNEPARK">Westbourne Park</option>
+              
+                <option value="WESTFERRY">Westferry</option>
+              
+                <option value="WESTMINSTER">Westminster</option>
+              
+                <option value="WHITECITY">White City</option>
+              
+                <option value="WHITECHAPEL">Whitechapel</option>
+              
+                <option value="WILLESDENGREEN">Willesden Green</option>
+              
+                <option value="WILLESDENJUNCTION">Willesden Junction</option>
+              
+                <option value="WIMBLEDONMAIN">Wimbledon</option>
+              
+                <option value="WIMBLEDONPARK">Wimbledon Park</option>
+              
+                <option value="WOODGREEN">Wood Green</option>
+              
+                <option value="WOODLANE">Wood Lane</option>
+              
+                <option value="WOODFORD">Woodford</option>
+              
+                <option value="WOODGRANGEPARK">Woodgrange Park</option>
+              
+                <option value="WOODSIDEPARK">Woodside Park</option>
+              
+                <option value="WOOLWICHARSENAL">Woolwich Arsenal</option>
+              
+            </select>
+          </span>
+          station
+        </div>
+      </div>
+      <div class="form_row form_row_include ">
+        <div class="form_label">Include</div>
+        <div class="form_inputs">
+          
+<label class="form_input form_checkbox" title="Select this option to include properties with current occupants in the results" for="roomsInShares">
+  <input type="checkbox" name="showme_rooms" CHECKED  id="roomsInShares" value="Y">
+  Rooms in existing shares
+  
+</label>
+<label class="form_input form_checkbox" for="oneBedOrStudio" title="Select this option to include 1 bed flats in the results">
+  <input type="checkbox" name="showme_1beds" CHECKED  value="Y" id="oneBedOrStudio">
+  Studios & 1 bed flats
+  
+</label>
+
+  <label class="form_input form_checkbox" title="Select this option to include whole properties in the results, so you can buddy up with other room seekers" for="wholeProperty">
+    <input type="checkbox" name="showme_buddyup_properties" CHECKED  id="wholeProperty" value="Y"><span class="aside-form_align-text">
+    Whole flats / houses (suitable for buddying up)</span>
+    
+  </label>
+
+        </div>
+      </div>
+  </fieldset>
+  
+  <div class="form_row form_row_buttons">
+    <div class="form_label"></div>
+    <div class="form_inputs">
+      
+      <input type="hidden" name="searchtype" value="simple">
+      <input type="hidden" name="editing" value="">
+      <input type="hidden" name="mode" value="">
+      <input type="hidden" name="nmsq_mode" value="">
+      <input type="hidden" name="action" value="search">
+      <input type="hidden" name="templateoveride" value="">
+      <input type="hidden" name="show_results" value="">
+      <input type="hidden" name="max_per_page" value="">
+      <div class="form_input form_button">
+        <button class="button" id="search-button" type="submit" name="submit">Search</button>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  (function ($) {
+    localStorage.removeItem('availableSearch');
+    $('[type="submit"]').on('click', function () {
+      localStorage.setItem('availableSearch', $('[name="year_avail"] option:selected').val() + '-' + $('[name="mon_avail"] option:selected').val() + '-' + $('[name="day_avail"] option:selected').val());
+    });
+  })(jQuery);
+</script>        </div>
+        <aside>
+          <section>
+              <section>
+                <h3>Help topics</h3>
+                <ul>
+                  <li><a href="/content/info-faq/buddyups/">What's a buddy up?</a></li>
+                  <li><a href="/content/info-faq/whole-properties/">How do I find whole properties to let, suitable for sharing?</a></li>
+                  <li><a href="/content/info-faq/whole-properties/#find-one-bed-properties">How do I find 1 bed properties?</a></li>
+                </ul>
+              </section>
+          </section>
+<section class="panel panel-header-closed need-help">
+	<header>
+		<h3>Need any help?</h3>
+	</header>
+	<div>
+		<p class="need_help_contact">
+      Contact us by <a href="/contact.pl" rel="nofollow" title="Contact us by email">email</a> or
+      <br>
+      <i class="far fa-phone"></i>
+      <a href="tel:+441617681162">Call us on 0161 768 1162</a>
+    </p>
+      <p class="need-help__hours">
+        Mon to Fri: 9am &ndash; 8.30pm
+        <br>
+        Weekends: 10am &ndash; 7.30pm
+      </p>
+    
+      <!-- Start of spareroom Zendesk Widget script -->
+        <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=02d88f50-babe-4177-82a1-fe426c9353a1"> </script>
+      <!-- End of spareroom Zendesk Widget script -->
+    
+    
+	</div>
+</section>
+        </aside>
+      </div>
+    </main>
+
+<footer id="site-footer" class="base-footer"><div class="footer__full-upper-rows">
+    <div class="footer__row footer__row--row-1-distraction">
+        <div class="footer__column footer__column--about-us">
+            <strong class="footer__column-header">About us</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-about-us footer__link" title="Find out more about us" href="/content/about-us/about-spareroom/">About <span class="footer__link-text--full">SpareRoom</span><span class="footer__link-text--short">us</span></a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-why-use footer__link" href="/content/about-us/why-use-spareroom/">Why use SpareRoom?</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-how-works footer__link" title="How to use SpareRoom" href="/content/about-us/how-spareroom-works/">How SpareRoom Works</a>                  </li>
+            </ul>
+        </div>
+        <div class="footer__column footer__column--our-services">
+            <strong class="footer__column-header">Our services</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-advertise-room footer__link" title="Advertise your room to let" href="/content/placeditadvert/listing-options/">Advertise a room</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-room-wanted footer__link" href="/flatshare/wanted_listing_step1.pl">Post a room wanted ad</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-whole-property footer__link" title="Advertise your whole property to a group of sharers" href="/content/placeditadvert/scp-options/">Advertise a whole property</a>                  </li>
+            </ul>
+        </div>
+        <div class="footer__column footer__column--contact">
+            <strong class="footer__column-header">Contact us</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-contact-us footer__link" href="/contact.pl">Contact us by email</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-call-us footer__link" title="Contact us by phone" href="tel:+441617681162">Call us on <strong>0161 768 1162</strong></a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-faq footer__link" title="SpareRoom FAQ" href="/content/info-faq/faq/">FAQ</a>                  </li>
+                  <li class="footer__column-list-item">
+                        <span>Follow us:</span>
+                          <a class="footer__link-instagram footer__link-social footer__link" href="https://www.instagram.com/SpareRoomuk"><span class="footer__link-social-text">Follow SpareRoom on Instagram</span><i aria-hidden="true" class="fab fa-instagram"></i></a><a class="footer__link-youtube footer__link-social footer__link" href="https://www.youtube.com/user/spareroom/?sub_confirmation=1"><span class="footer__link-social-text">SpareRoom YouTube channel</span><i aria-hidden="true" class="fab fa-youtube"></i></a><a class="footer__link-twitter footer__link-social footer__link" href="https://www.twitter.com/SpareRoomUK"><span class="footer__link-social-text">Follow SpareRoom on Twitter</span><i aria-hidden="true" class="fab fa-twitter"></i></a><a class="footer__link-facebook footer__link-social footer__link" href="https://www.facebook.com/spareroom"><span class="footer__link-social-text">SpareRoom on Facebook</span><i aria-hidden="true" class="fab fa-facebook-f"></i></a>
+                  </li>
+            </ul>
+        </div>
+        <div class="footer__column footer__column--terms-privacy">
+            <strong class="footer__column-header">Terms & Privacy</strong>
+            <ul class="footer__column-list">
+                  <li class="footer__column-list-item"><a class="footer__link-terms footer__link" title="SpareRoom's terms" href="/content/default/terms-uk">Terms and conditions</a>                  </li>
+                  <li class="footer__column-list-item"><a class="footer__link-privacy footer__link" title="SpareRoom's privacy" href="/content/default/privacy-uk">Privacy policy</a>                  </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="footer__small-row"><a class="footer__link-app footer__small-link" title="Get the SpareRoom iPhone and Android app here" href="/app">Get the app</a><a class="footer__link-contact-us footer__small-link" href="/contact.pl">Contact us</a><a class="footer__link-about-us footer__small-link" title="Find out more about us" href="/content/about-us/about-spareroom/">About <span class="footer__link-text--full">SpareRoom</span><span class="footer__link-text--short">us</span></a><a class="footer__link-terms footer__small-link" title="SpareRoom's terms" href="/content/default/terms-uk">Terms and conditions</a><a class="footer__link-privacy footer__small-link" title="SpareRoom's privacy" href="/content/default/privacy-uk">Privacy policy</a><a class="footer__link-flatsharing-press footer__small-link" href="/press">Press <span class="footer__link-text--full">Office</span></a><a class="footer__link-discrimination footer__small-link" title="Discrimination in flatshare ads" href="/content/default/discrimination/">Discrimination</a><a class="footer__link-jobs footer__small-link" title="Work at SpareRoom" href="/content/about/jobs">Jobs</a></div>
+<div class="footer__bottom-row">
+<div class="footer__bottom-row-apps"><a class="footer__link footer__link-text--full" title="SpareRoom app details" data-ga-event-category="Apps promo" data-ga-event-action="clicked" data-ga-event-label="footer-app-page" href="/app"><strong>SpareRoom apps</strong> (free)</a><a class="footer__link" title="SpareRoom iOS app download on Apple Store" data-ga-event-category="Apps promo" data-ga-event-action="clicked" data-ga-event-label="footer-ios-store" href="https://itunes.apple.com/app/apple-store/id400181250?pt=450238&ct=uk-desktop-universal-footer&at=1001lnJ5&mt=8&ls=1"><strong><i class="fab fa-apple footer__link-app-icon"></i> iOS app</strong></a><a class="footer__link" title="SpareRoom Android app download on Google Play" data-ga-event-category="Apps promo" data-ga-event-action="clicked" data-ga-event-label="footer-google-play" href="https://play.google.com/store/apps/details?id=com.spareroom.spareroomuk&referrer%3Dutm_source%3Ddesktop-footer%26utm_medium%3Dlink"><strong><i class="fab fa-android footer__link-app-icon"></i> Android app</strong></a></div>
+<div class="footer__bottom-row-cookies">
+  <div class="footer__link">
+    <button id="ot-sdk-btn" style="display: none;" class="button button--link optanon-toggle-display">Cookie Settings</button>
+  </div>
+</div>
+<div class="footer__bottom-row-copyright">
+  &copy;1999&ndash;2022 Flatshare Ltd.
+</div></div></footer>
+<div class="overlay-mask" id="overlay-mask"></div>
+<div class="profile-viewer hidden-overlay" data-overlay-name="user-profile"><!--
+  --><a class="profile-viewer__close close-circle-cross far fa-times-circle" data-overlay-close="user-profile"></a><!--
+  --><div class="profile-viewer__identity">
+    <img id="profile-data__profile_photo" src="/v2/img/spareroom/v4/icons/profilepic_unisex.gif" onerror="this.src='/v2/img/spareroom/v4/icons/profilepic_unisex.gif'; this.onerror=null;" class="profile-viewer__photo" alt="User profile icon" width="222"  height="222" loading="lazy">
+    <div data-profile-viewer-value="0" class="profile-viewer__identity-name" id="profile-data__first_name">Unknown</div>
+    <!-- if verified.value -->
+      
+       <div class="profile-viewer__verified hidden" id="profile-data__verified">
+         <p><i class="fas fa-shield-check verification_symbol"></i> Verified User</p>
+          </div>
+
+       
+    <!-- end if -->
+    <a href="/flatshare/mydetails.pl" class="profile-viewer__edit-link hidden">Edit profile</a>
+  </div><!--
+  --><div class="profile-viewer__info-wrap">
+    <ul class="profile-viewer__data-list">
+      <li class="profile-viewer__data-item profile-viewer__data-item--age hidden">Age<span data-profile-viewer-value="0" class="profile-viewer__data-value" id="profile-data__age">Unknown</span></li>
+      <li class="profile-viewer__data-item">Gender<span data-profile-viewer-value="0" class="profile-viewer__data-value" id="profile-data__gender">Unknown</span></li>
+      <li class="profile-viewer__data-item">Member since<span data-profile-viewer-value="0" class="profile-viewer__data-value" id="profile-data__member_since">Unknown</span></li>
+      <li class="profile-viewer__data-item">Last active<span data-profile-viewer-value="0" class="profile-viewer__data-value" id="profile-data__last_active">Unknown</span></li>
+    </ul>
+    <div class="profile-viewer--quote-wrap">
+      <div class="profile-viewer--quote-title">Joined SpareRoom because:</div>
+      <!-- if haveashare.value -->
+        <q class="profile-viewer--quote-item hidden" id="profile-data__have_a_share">I have a flat or house share</q>
+      <!-- end if -->
+      <!-- if lookingforashare.value -->
+        <q class="profile-viewer--quote-item hidden" id="profile-data__looking_for_a_share">I am looking for a flat or house share</q>
+      <!-- end if -->
+      <!-- if makeashare.value -->
+        <q class="profile-viewer--quote-item hidden" id="profile-data__make_a_share">I'd like to find people to form a new share</q>
+      <!-- end if -->
+    </div><!--
+  --></div><!--
+--><error class="profile-viewer__error-message"></error>
+</div>
+
+  <div tabindex="1" role="dialog" id="userAuth" class="auth hidden-overlay" data-use-modal="true" data-email="" data-pass="" data-log-in-from-url="%2Fflatshare%2Fsearch.pl" data-show-sign-in="" data-csrf-token="8934fb38f875dcee6bf7a64851a9e8e1cdd257ca,c55be75355ac2411915d3df13a05da7deb952402,1669326655">
+<div id="user_auth">
+  <div style="display: flex; justify-content: center; margin: 16px 0 0;">
+    <i class="far fa-spinner fa-pulse fa-4x fa-fw"></i>
+  </div>
+  <h3 style="text-align: center; margin-top: 16px;">Loading...</h3>
+</div>  </div>
+
+
+<script src="https://assets.spareroom.co.uk/assets/f7753af16a6b3eaf7931f91ca25803c5.js"></script>
+<script>
+  
+
+  SR.init({
+    
+    siteId:           1,
+    domainId:         1,
+    locale:           'en-GB',
+    correctUrl:       'www.spareroom.co.uk',
+    staticServer:     'assets.spareroom.co.uk',
+    appSubdir:        'flatshare',
+    googleMapsClientId: 'gme-flatshareltd',
+    gaCategoryMapEvents: 'Google Maps (09 -11-16)',
+    loginReturnPath:  '\x2Fflatshare\x2Fsearch\x2Epl',
+    siteMobile: false,
+    facebook : {
+      appLocale: 'en_GB',
+    }
+  });
+
+  SR.localisations = {};
+
+  SR.facebookConnect.setSettings({
+    appConfig: { appId: '5097577709' }
+  });
+
+  SR.tracking.init();
+  SR.checkCookies.init();
+  SR.saveSearchToLocalStorage.init();
+  SR.spareroom.init();
+
+  jQuery('input[type="text"]').each(function() {
+    if ( jQuery(this)[0].hasAttribute('data-store-search-text') ) {
+      new SR.Autocompleter({
+        input: jQuery(this)
+      });
+    }
+  });
+  </script>
+    <script src="/v2/build/js/vendor.3bdc068a1d427ac1769b.js"></script>
+  <script src="/v2/build/js/global/stack.6c04e8b5ac9fe105e720.js"></script>
+
+  <script src="/v2/build/js/components/auth/index.dc868797b250a84ffd2d.js"></script>
+
+    <script src="https://assets.spareroom.co.uk/assets/5b27aed64029344fea5889af54e2f353.js"></script>
+        <script>
+      SR.search.form.init();
+    </script>
+  </body>
+</html>

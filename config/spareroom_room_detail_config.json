@@ -1,0 +1,45 @@
+[
+    {
+        "name": "fullDescription",
+        "container": null,
+        "element_name": "p",
+        "class_names": [
+            "detaildesc"
+        ],
+        "attributes": null,
+        "text": true
+    },
+    {
+        "name": "thumbnails",
+        "container": null,
+        "element_name": "a",
+        "class_names": [
+            "photoswipe_me img"
+        ],
+        "attributes": [
+            "href"
+        ],
+        "text": false
+    },
+    {
+        "name": "price",
+        "container": null,
+        "element_name": "strong",
+        "class_names": [
+            "room-list__price"
+        ],
+        "attributes": null,
+        "text": true
+    },
+    {
+        "name": "attributes",
+        "container": null,
+        "multiple": true,
+        "element_name": "dt",
+        "class_names": [
+            "feature-list__key"
+        ],
+        "attributes": null,
+        "text": true
+    }
+]

@@ -8,6 +8,17 @@
         "text": true
     },
     {
+        "name": "flatshare_id",
+        "container": null,
+        "element_name": null,
+        "class_names": "listing-result",
+        "attributes": [
+            "data-listing-id"
+        ],
+        "text": false
+    },
+
+    {
         "name": "shortDesc",
         "container": null,
         "element_name": "em",
