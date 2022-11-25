@@ -2,7 +2,7 @@
 
 __pycache__
 
-*/sparerooms.csv
+data/sparerooms*.csv
 
 **/__pycache__
 

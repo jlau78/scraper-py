@@ -1,4 +1,7 @@
 import logging
+import logging.config
+
+log = logging.getLogger('Extractor')
 
 class soup_extractor:
     """BS4 extractor utilities with verification and auditing"""
@@ -22,7 +25,7 @@ class soup_extractor:
             else:
                 value = source.find(element, class_=classname).text
                 if value is None:
-                    logging.warning('element %s has no text value', source)                    
+                    log.warning('element %s has no text value', source)                    
         else:
             if element is None:
                 value = source[attribute]
@@ -31,9 +34,9 @@ class soup_extractor:
                 if elem is not None:
                     value = elem[attribute]
             if value is None:
-                logging.warning('element %s has no attribute value', source, attribute)                    
+                log.warning('element %s has no attribute value', source, attribute)                    
 
-        logging.debug("Value found for element: %s:%s:%s == %s", element, classname, attribute, value)
+        log.debug("Value found for element: %s:%s:%s == %s", element, classname, attribute, value)
 
         return value
 
