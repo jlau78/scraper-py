@@ -7,8 +7,10 @@ from config.page_config import page_config
 from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
 from utils.extractor_utils import soup_extractor
+from utils.string_utils import string_utils
 
 log = logging.getLogger('Scraper')
+su = string_utils()
 
 class scraper:
 
@@ -36,14 +38,13 @@ class scraper:
         Args:
             url (string): Page url for extraction
             pageconfig_filepath (string): page_config config file
-            container_elem_attr_array (array): Array [element, classname] for the page container element to find_all on
+            container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
 
         Returns:
             List: List of values extracted from page elements 
         """        
 
-
-        log.info('Extract elements from:%s', url)
+        logging.info('Extract elements from:%s', url)
 
         listings = []
 
@@ -93,18 +94,18 @@ class scraper:
             keys = []
             alldt = element.find_all('dt', 'feature-list__key')
             for dt in alldt:
-                    keys.append(dt.text)
+                    keys.append(su.clean(dt.text))
 
             values = []
             alldd = element.find_all('dd', 'feature-list__value')
             for dd in alldd:
-                values.append(dd.text)
+                values.append(su.clean(dd.text))
 
             for i in range(len(keys)):
                 logging.debug('create map: index %d -> [%s, %s]', i, keys[i], values[i])
                 dict[keys[i]] = values[i].strip('\n')
 
-        log.info('collectMultipleKeyValues, map:%s', dict)
+        logging.info('collectMultipleKeyValues, map:%s', dict)
         return dict
 
 
@@ -113,10 +114,16 @@ class scraper:
         csvwriter().writeHeaderToCsv(output_file, headers)
 
     def scrape_listing_pages(self, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr, output_file):
-        """Iterate through search listing pages and extract articles"""
+        """Iterate through search listing pages and extract articles
 
-        # TODO: temp feature: clean existing before writeToCsv
-        csvwriter().temp_remove_existing_csv(output_file)
+        Args:
+            base_url (string): url of the search listing page 
+            pageconfig_file (string): page_config config filepath
+            max_num_pages (integer): max number of search pages to search
+            result_size (integer): number of results per search listing
+            container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
+            output_file (string): CSV file to output extracted data
+        """   
 
         for cur_page in range(1,max_num_pages):
             url = base_url + str(cur_page * result_size)
@@ -124,26 +131,32 @@ class scraper:
             listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
 
             if len(listings) > 0:
-                # log.info('listings: %s', listings)
+                # logging.info('listings: %s', listings)
                 csvwriter().writeToCsv(output_file, listings)
 
-                log.info('COMPLETE: Extracted elements from given html page:')
-                log.info(url)
+                logging.info('COMPLETE: Extracted elements from given html page:')
+                logging.info(url)
 
                 # data = page_config.readPageElements(pageconfig_filepath)
 
                 # mongowriter().addToMongo(listings)
         
-        log.info('COMPLETED: Extracted all search listings to CSV')
+        logging.info('COMPLETED: Extracted all search listings to CSV')
 
 
-    def scrape_single_page(self, url, pageconfig_file, container_elem_attr_arr, output_file):
-        # TODO: temp feature: clean existing before writeToCsv
-        csvwriter().temp_remove_existing_csv(output_file)
+    def scrape_item_detail_page(self, url, pageconfig_file, container_elem_attr_arr, output_file):
+        """Scrape item detail page
+
+        Args:
+            url (string): url of the item detail
+            pageconfig_file (string): page_config config filepath
+            container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
+            output_file (string): CSV file to output extracted data
+        """        
 
         listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
         csvwriter().writeToCsv(output_file, listings)
 
-        log.info('COMPLETED: Extracted page to CSV')
+        logging.info('COMPLETED: Extracted page to CSV')
 
 

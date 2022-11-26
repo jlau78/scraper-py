@@ -46,18 +46,7 @@
         "text": true
     },
     {
-        "name": "room price",
-        "container": null,
-        "multiple_key_value": false,
-        "element_name": "strong",
-        "class_names": [
-            "room-list__price"
-        ],
-        "attributes": null,
-        "text": true
-    },
-    {
-        "name": "attributes",
+        "name": "feature-list",
         "container": null,
         "multiple_key_value": true,
         "element_name": "dt",
