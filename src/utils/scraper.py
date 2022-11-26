@@ -13,6 +13,16 @@ log = logging.getLogger('Scraper')
 class scraper:
 
     def soup_find(self, url, element_attr):
+        """_summary_
+
+        Args:
+            url (string): Page url for extraction
+            element_attr (array): Array [element, classname] for bs4.find_all to get all elements
+
+        Returns:
+            _type_: _description_
+        """        
+
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         # lists = soup.find_all('article', class_="panel-listing-result")
@@ -20,13 +30,25 @@ class scraper:
 
 
     def extractPageElements(self, url, pageconfig_filepath, container_elem_attr_array):
-        """Extract the values from the page elements defined by the page_config"""
+        """
+            Extract the values from the page elements defined by the page_config
+
+        Args:
+            url (string): Page url for extraction
+            pageconfig_filepath (string): page_config config file
+            container_elem_attr_array (array): Array [element, classname] for the page container element to find_all on
+
+        Returns:
+            List: List of values extracted from page elements 
+        """        
+
 
         log.info('Extract elements from:%s', url)
 
         listings = []
 
-        for list in self.soup_find(url, container_elem_attr_array):
+        for elements in self.soup_find(url, container_elem_attr_array):
+            logging.debug('soup_find %s, elements:%s', container_elem_attr_array, elements)
             b = soup_extractor()
             row = []
             pageconfigs = page_config.readPageElements(pageconfig_filepath)
@@ -38,17 +60,53 @@ class scraper:
                 get_text = c['text']
 
                 if not c['container'] == None:
-                    list = list.find(c['container'])
-                    log.debug("Nested tag:%s", list)
+                    elements = elements.find(c['container'])
+                    log.debug("Nested tag:%s", elements)
 
-                if get_text is True:
-                    row.append(b.extractElementTextValue(c['name'], list, c['element_name'], c['class_names']))
+                if c['multiple_key_value'] is True:
+                    row.append(self.collectMultipleKeyValueFromSingle(url, elements, c))
+                elif get_text is True:
+                    logging.debug('extractTextValue: config:%s', c)
+                    row.append(b.extractElementTextValue(c['name'], elements, c['element_name'], c['class_names']))
                 else:
-                    row.append(b.extractElementAttributeValue(c['name'], list, c['element_name'], c['class_names'], c['attributes'][0]))
+                    logging.debug('extractAttributeVAlue: config:%s', c)
+                    row.append(b.extractElementAttributeValue(c['name'], elements, c['element_name'], c['class_names'], c['attributes'][0]))
             listings.append(row)
 
         # create_csv_headers(headers)
         return listings
+
+    def collectMultipleKeyValueFromSingle(self, url, elements, config):
+        """
+        Collect multiple key value from the same element type. First value is the 'key', second value is the 'value'.
+            eg. <dt>Minimum term</dt> <dt>6 months</dt>
+
+        Args:
+            elements (array): List of like elements to process
+            config (page_config): page_config config element. eg config['name'] or config['element_name']
+        """
+        dict = {}
+        features = self.soup_find(url, ['dl', 'feature-list'])
+        for element in features:
+            logging.debug('collectMultipleKeyValue - config:%s, element:%s', config, element)
+            # alldt = element.find_all(config['element_name'], config['class_names'])
+            keys = []
+            alldt = element.find_all('dt', 'feature-list__key')
+            for dt in alldt:
+                    keys.append(dt.text)
+
+            values = []
+            alldd = element.find_all('dd', 'feature-list__value')
+            for dd in alldd:
+                values.append(dd.text)
+
+            for i in range(len(keys)):
+                logging.debug('create map: index %d -> [%s, %s]', i, keys[i], values[i])
+                dict[keys[i]] = values[i].strip('\n')
+
+        log.info('collectMultipleKeyValues, map:%s', dict)
+        return dict
+
 
     def create_csv_headers(self, headers):
         """Create the headers in the new CSV file"""
