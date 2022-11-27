@@ -49,9 +49,9 @@
         "name": "feature-list",
         "container": null,
         "multiple_key_value": true,
-        "element_name": "dt",
+        "element_name": "dl",
         "class_names": [
-            "feature-list__key"
+            "feature-list"
         ],
         "attributes": null,
         "text": true

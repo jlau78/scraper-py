@@ -6,8 +6,10 @@ import requests
 from config.page_config import page_config
 from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
-from utils.extractor_utils import soup_extractor
+from utils.extractor.html_extractor import soup_extractor
 from utils.string_utils import string_utils
+from utils.handler.ddDtHandler import ddDtHandler
+from utils.handler.ulHandler import ulHandler
 
 log = logging.getLogger('Scraper')
 su = string_utils()
@@ -65,7 +67,13 @@ class scraper:
                     log.debug("Nested tag:%s", elements)
 
                 if c['multiple_key_value'] is True:
-                    row.append(self.collectMultipleKeyValueFromSingle(url, elements, c))
+                    elements = self.soup_find(url, [c['element_name'], c['class_names']])
+                    if c['element_name'] == 'dl':
+                        extractedString = ddDtHandler.handle(elements, c)
+                    elif c['element_name'] == 'ul':
+                        extractedString = ulHandler.handle(elements, c)
+                    row.append(su.getJson(extractedString))
+
                 elif get_text is True:
                     logging.debug('extractTextValue: config:%s', c)
                     row.append(b.extractElementTextValue(c['name'], elements, c['element_name'], c['class_names']))
@@ -77,36 +85,6 @@ class scraper:
         # create_csv_headers(headers)
         return listings
 
-    def collectMultipleKeyValueFromSingle(self, url, elements, config):
-        """
-        Collect multiple key value from the same element type. First value is the 'key', second value is the 'value'.
-            eg. <dt>Minimum term</dt> <dt>6 months</dt>
-
-        Args:
-            elements (array): List of like elements to process
-            config (page_config): page_config config element. eg config['name'] or config['element_name']
-        """
-        dict = {}
-        features = self.soup_find(url, ['dl', 'feature-list'])
-        for element in features:
-            logging.debug('collectMultipleKeyValue - config:%s, element:%s', config, element)
-            # alldt = element.find_all(config['element_name'], config['class_names'])
-            keys = []
-            alldt = element.find_all('dt', 'feature-list__key')
-            for dt in alldt:
-                    keys.append(su.clean(dt.text))
-
-            values = []
-            alldd = element.find_all('dd', 'feature-list__value')
-            for dd in alldd:
-                values.append(su.clean(dd.text))
-
-            for i in range(len(keys)):
-                logging.debug('create map: index %d -> [%s, %s]', i, keys[i], values[i])
-                dict[keys[i]] = values[i].strip('\n')
-
-        logging.info('collectMultipleKeyValues, map:%s', dict)
-        return dict
 
 
     def create_csv_headers(self, headers):

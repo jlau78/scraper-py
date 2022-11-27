@@ -8,7 +8,6 @@ from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
 
 from utils.scraper import scraper
-from utils.extractor_utils import soup_extractor
 from model.page_element import page_element
 from model.keyvalue_object import keyvalue_object
 
