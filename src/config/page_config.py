@@ -7,6 +7,17 @@ class page_config:
     """
       
     def readPageElements(pageconfig_filepath):
+        """
+        Read the page_config file and get all the page_config attributes
+
+        Returns:
+            Array: Array of page_config attributes
+
+        Args:
+            pageconfig_filepath (String): page_config filepath
+
+        """
+
         datas = []
         with open(pageconfig_filepath) as json_file:
             alldata = json.load(json_file)

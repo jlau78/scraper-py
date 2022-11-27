@@ -44,13 +44,3 @@ class csvwriter:
     def is_file_empty(self, file_path):
         return not os.path.exists(file_path) or os.path.exists(file_path) and os.stat(file_path).st_size == 0
         # return os.path.exists(file_path) and os.stat(file_path).st_size == 0
-
-    def clean_string(self, svalue):
-        str(svalue).replace('\t', '  ')
-        # str(svalue).replace('\b', ' ')
-        str(svalue).replace('\r', ' ')
-        str(svalue).replace('\n', '  ')
-        return str(self.encode_ascii(svalue))
-
-    def encode_ascii(self, svalue):
-        return str(svalue).encode('ascii', 'ignore')

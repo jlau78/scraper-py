@@ -2,6 +2,7 @@
     {
         "name": "fullDescription",
         "container": null,
+        "multiple_key_value": false,
         "element_name": "p",
         "class_names": [
             "detaildesc"
@@ -12,6 +13,7 @@
     {
         "name": "thumbnails",
         "container": null,
+        "multiple_key_value": false,
         "element_name": "a",
         "class_names": [
             "photoswipe_me img"
@@ -24,6 +26,7 @@
     {
         "name": "price",
         "container": null,
+        "multiple_key_value": false,
         "element_name": "strong",
         "class_names": [
             "room-list__price"
@@ -32,12 +35,23 @@
         "text": true
     },
     {
-        "name": "attributes",
+        "name": "key features",
         "container": null,
-        "multiple": true,
-        "element_name": "dt",
+        "multiple_key_value": false,
+        "element_name": "li",
         "class_names": [
-            "feature-list__key"
+            "key-features__feature"
+        ],
+        "attributes": null,
+        "text": true
+    },
+    {
+        "name": "feature-list",
+        "container": null,
+        "multiple_key_value": true,
+        "element_name": "dl",
+        "class_names": [
+            "feature-list"
         ],
         "attributes": null,
         "text": true

@@ -23,6 +23,7 @@ class soup_extractor:
             if element is None:
                 value = source.text
             else:
+                logging.debug('extract text from element:%s, class:%s, source:', element, classname)
                 value = source.find(element, class_=classname).text
                 if value is None:
                     log.warning('element %s has no text value', source)                    
@@ -32,6 +33,7 @@ class soup_extractor:
             else:
                 elem = source.find(element, class_=classname)
                 if elem is not None:
+                    logging.debug('extract attr %s from element:%s', attribute, elem)
                     value = elem[attribute]
             if value is None:
                 log.warning('element %s has no attribute value', source, attribute)                    
