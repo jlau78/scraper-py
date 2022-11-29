@@ -26,3 +26,7 @@ PS C:\work\code\broex\analysis\scraper-py> python.exe src\scrape.py
 Install the Draw.io application to view the ./scraper-overview.drawio diagram.
 
 
+## Search By Area
+
+The configuration file `config/searchLondonArearList.txt` contains all the areas to search for rooms in London.
+

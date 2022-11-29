@@ -34,7 +34,7 @@ class soup_extractor:
             if element is None:
                 value = source.text
             else:
-                logging.info('extract text from element:%s, class:%s, source:', element, classname)
+                logging.debug('extract text from element:%s, class:%s, source:', element, classname)
                 value = None
                 elem = source.find(element, class_=classname)
                 if not elem is None:

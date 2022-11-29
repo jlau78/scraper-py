@@ -3,6 +3,8 @@ import logging
 import logging.config
 from bs4 import BeautifulSoup
 import requests
+from urllib.parse import urlparse, urlencode, parse_qsl, parse_qs
+
 from config.page_config import page_config
 from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
@@ -14,22 +16,33 @@ su = string_utils()
 
 class scraper:
 
-    def soup_find(self, url, element_attr):
-        """_summary_
+    def searchByArea(self, area, type, pageconfig_file, max_search_page, search_page_size, container_elem_attr_arr, output_file ):
+        """Search rooms by area and type
 
         Args:
-            url (string): Page url for extraction
-            element_attr (array): Array [element, classname] for bs4.find_all to get all elements
-
-        Returns:
-            _type_: _description_
+            area (string): Area name
+            type (string): type of listing [offered|wanted]
         """        
 
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        # lists = soup.find_all('article', class_="panel-listing-result")
-        return soup.find_all(element_attr[0], class_= element_attr[1])
+        try:
+            if not area is None or not area == '':
+                url = 'https://www.spareroom.co.uk/flatshare/search.pl?nmsq_mode=normal&action=search&max_per_page=&flatshare_type='+type+'&miles_from_max=0&search='+area
+                response = requests.get(url)
 
+                # The search request will redirect (302) to the starting search results page. So we get the response's url to scrape the result pages
+                responseUrl = response.url #.__getattribute__('search_id')
+                logging.info('responseUrl: %s', responseUrl)
+                searchIdValue = su.getQSFromUrl(responseUrl, 'search_id')
+                baseUrl = "https://www.spareroom.co.uk/flatshare/?&search_id=999999&sort_by=by_day&mode=list&offset=" 
+                searchUrl = su.patch_url(baseUrl, search_id=searchIdValue)
+
+                logging.info('Search for area %s => url: %s', area, searchUrl)
+                
+                self.scrape_listing_pages(searchUrl, pageconfig_file, max_search_page, search_page_size, container_elem_attr_arr, output_file)
+        except:
+            logging.error('Failed to get results for the area:%s', area)
+
+ 
 
     def extractPageElements(self, url, pageconfig_filepath, container_elem_attr_array):
         """
@@ -48,7 +61,10 @@ class scraper:
 
         listings = []
 
-        for elements in self.soup_find(url, container_elem_attr_array):
+        foundElements = self.soup_find(url, container_elem_attr_array)
+        logging.info('Found elements:%d', len(foundElements))
+
+        for elements in foundElements:
 
             logging.debug('soup_find %s, elements:%s', container_elem_attr_array, elements)
             b = soup_extractor()
@@ -57,8 +73,8 @@ class scraper:
             headers = []
 
             for c in pageconfigs:
+                log.info('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c)
 
-                log.debug('debug: pageconfig defined elements to extract values:%s', c)
                 headers.append(c['name'])
                 value = None
 
@@ -83,14 +99,16 @@ class scraper:
                     elements = self.soup_find(url, [c['element_name'], c['class_names']])
                     extractedString = b.extractMultipleKeyValues( elements, c['name'], c['element_name'])
                     value = extractedString
+                    logging.debug('extract hasMany: config:%s, value:%s', c, value)
 
                 elif get_text is True:
-                    logging.debug('extractTextValue: config:%s, elements:%s', c, elements)
                     value = b.extractElementTextValue(c['name'], elements, c['element_name'], c['class_names'])
+                    logging.debug('extract text value: config:%s, value:%s', c, value)
                 else:
-                    logging.debug('extractAttributeVAlue: config:%s', c)
                     value = b.extractElementAttributeValue(c['name'], elements, c['element_name'], c['class_names'], c['attributes'][0])
+                    logging.debug('extract attribute value: config:%s, value:%s', c, value)
 
+                logging.info('extracted value:%s', value)
                 row.append(value)
 
                 # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
@@ -160,5 +178,21 @@ class scraper:
         csvwriter().writeToCsv(output_file, listings)
 
         logging.info('COMPLETED: Extracted page to CSV')
+ 
+    def soup_find(self, url, element_attr):
+        """_summary_
 
+        Args:
+            url (string): Page url for extraction
+            element_attr (array): Array [element, classname] for bs4.find_all to get all elements
 
+        Returns:
+            _type_: _description_
+        """        
+
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        # lists = soup.find_all('article', class_="panel-listing-result")
+        return soup.find_all(element_attr[0], class_= element_attr[1])
+
+ 
