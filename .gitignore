@@ -1,8 +1,10 @@
 
-
 __pycache__
+**/__pycache__
 
 data/sparerooms*.csv
 
-**/__pycache__
+# drawio
+**/*.drawio.*
+
 

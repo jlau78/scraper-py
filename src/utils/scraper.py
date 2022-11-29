@@ -8,8 +8,6 @@ from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
 from utils.extractor.html_extractor import soup_extractor
 from utils.string_utils import string_utils
-from utils.handler.ddDtHandler import ddDtHandler
-from utils.handler.ulHandler import ulHandler
 
 log = logging.getLogger('Scraper')
 su = string_utils()
@@ -51,40 +49,58 @@ class scraper:
         listings = []
 
         for elements in self.soup_find(url, container_elem_attr_array):
+
             logging.debug('soup_find %s, elements:%s', container_elem_attr_array, elements)
             b = soup_extractor()
             row = []
             pageconfigs = page_config.readPageElements(pageconfig_filepath)
             headers = []
+
             for c in pageconfigs:
+
                 log.debug('debug: pageconfig defined elements to extract values:%s', c)
                 headers.append(c['name'])
+                value = None
 
                 get_text = c['text']
+                fk = False
+                if "foreignkey" in c:
+                    fk = c['foreignkey']
 
-                if not c['container'] == None:
+                hasMany = False
+                if "multiple_key_value" in c:
+                    hasMany = c['multiple_key_value']
+
+                container = None
+                if "container" in c:
+                    container = c['container']
+
+                if not container == None:
                     elements = elements.find(c['container'])
                     log.debug("Nested tag:%s", elements)
 
-                if c['multiple_key_value'] is True:
+                if hasMany is True:
                     elements = self.soup_find(url, [c['element_name'], c['class_names']])
-                    if c['element_name'] == 'dl':
-                        extractedString = ddDtHandler.handle(elements, c)
-                    elif c['element_name'] == 'ul':
-                        extractedString = ulHandler.handle(elements, c)
-                    row.append(su.getJson(extractedString))
+                    extractedString = b.extractMultipleKeyValues( elements, c['name'], c['element_name'])
+                    value = extractedString
 
                 elif get_text is True:
-                    logging.debug('extractTextValue: config:%s', c)
-                    row.append(b.extractElementTextValue(c['name'], elements, c['element_name'], c['class_names']))
+                    logging.debug('extractTextValue: config:%s, elements:%s', c, elements)
+                    value = b.extractElementTextValue(c['name'], elements, c['element_name'], c['class_names'])
                 else:
                     logging.debug('extractAttributeVAlue: config:%s', c)
-                    row.append(b.extractElementAttributeValue(c['name'], elements, c['element_name'], c['class_names'], c['attributes'][0]))
+                    value = b.extractElementAttributeValue(c['name'], elements, c['element_name'], c['class_names'], c['attributes'][0])
+
+                row.append(value)
+
+                # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
+                if fk == True:
+                   self.scrape_spareroom_detail_page(value) 
+
             listings.append(row)
 
         # create_csv_headers(headers)
         return listings
-
 
 
     def create_csv_headers(self, headers):
@@ -120,6 +136,14 @@ class scraper:
                 # mongowriter().addToMongo(listings)
         
         logging.info('COMPLETED: Extracted all search listings to CSV')
+
+    def scrape_spareroom_detail_page(self, fkid):
+        pageconfig_file = 'config/spareroom_room_detail_config.json'
+        output_file = './data/sparerooms_room_' + fkid + '.csv'
+        url = 'https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=' + fkid
+
+        logging.info('Get spareroom room detail for flatshareId:%s, output:%s', fkid, output_file)
+        self.scrape_item_detail_page(url, pageconfig_file,  ['div', 'free_listing'], output_file)
 
 
     def scrape_item_detail_page(self, url, pageconfig_file, container_elem_attr_arr, output_file):

@@ -1,6 +1,9 @@
 import logging
 import logging.config
 
+from utils.handler.dlHandler import dlHandler
+from utils.handler.ulHandler import ulHandler
+
 log = logging.getLogger('Extractor')
 
 class soup_extractor:
@@ -16,6 +19,14 @@ class soup_extractor:
     def extractElementAttributeValue(self, name, source, element, classname, attribute): 
         return self.extractElementValue(source, element, classname, attribute, False)
 
+    def extractMultipleKeyValues(self, elements, name, element_name):
+        if element_name == 'dl':
+            extractedString = dlHandler.handle(elements, element_name)
+        elif element_name == 'ul':
+            extractedString = ulHandler.handle(elements, element_name)
+        
+        return extractedString
+
 
     def extractElementValue(self, source, element, classname, attribute, text): 
         value = ''
@@ -23,8 +34,12 @@ class soup_extractor:
             if element is None:
                 value = source.text
             else:
-                logging.debug('extract text from element:%s, class:%s, source:', element, classname)
-                value = source.find(element, class_=classname).text
+                logging.info('extract text from element:%s, class:%s, source:', element, classname)
+                value = None
+                elem = source.find(element, class_=classname)
+                if not elem is None:
+                    value = elem.text
+                    
                 if value is None:
                     log.warning('element %s has no text value', source)                    
         else:
@@ -33,7 +48,7 @@ class soup_extractor:
             else:
                 elem = source.find(element, class_=classname)
                 if elem is not None:
-                    logging.debug('extract attr %s from element:%s', attribute, elem)
+                    # logging.debug('extract attr %s from element:%s', attribute, elem)
                     value = elem[attribute]
             if value is None:
                 log.warning('element %s has no attribute value', source, attribute)                    
@@ -50,5 +65,4 @@ class soup_extractor:
     def duplicateCheck(self, key):
         return key;
 
-    
     
