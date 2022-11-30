@@ -57,12 +57,12 @@ class scraper:
             List: List of values extracted from page elements 
         """        
 
-        logging.info('Extract elements from:%s', url)
+        logging.info('START: Extract elements from:%s, pageconfig:%s', url, pageconfig_filepath)
 
         listings = []
 
         foundElements = self.soup_find(url, container_elem_attr_array)
-        logging.info('Found elements:%d', len(foundElements))
+        logging.info('Found elements:%d for container element:%s', len(foundElements), container_elem_attr_array)
 
         for elements in foundElements:
 
@@ -108,14 +108,22 @@ class scraper:
                     value = b.extractElementAttributeValue(c['name'], elements, c['element_name'], c['class_names'], c['attributes'][0])
                     logging.debug('extract attribute value: config:%s, value:%s', c, value)
 
-                logging.info('extracted value:%s', value)
+                if value is None:
+                    logging.warn('Fail to extract a value with from the page_config:%s, container element:%s', c, container_elem_attr_array)
+                else:
+                    logging.debug('extracted value:%s', value)
+
                 row.append(value)
 
                 # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
                 if fk == True:
                    self.scrape_spareroom_detail_page(value) 
 
-            listings.append(row)
+            if row is None:
+                logging.error('FATAL: Row is empty. Fail to extract any values with the page_config:%s, container element:%s'
+                            , c, container_elem_attr_array)
+            else:
+                listings.append(row)
 
         # create_csv_headers(headers)
         return listings
@@ -159,9 +167,10 @@ class scraper:
         pageconfig_file = 'config/spareroom_room_detail_config.json'
         output_file = './data/sparerooms_room_' + fkid + '.csv'
         url = 'https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=' + fkid
+        room_detail_container_element =  ['div', 'listing listing--property layoutrow']
 
         logging.info('Get spareroom room detail for flatshareId:%s, output:%s', fkid, output_file)
-        self.scrape_item_detail_page(url, pageconfig_file,  ['div', 'free_listing'], output_file)
+        self.scrape_item_detail_page(url, pageconfig_file, room_detail_container_element, output_file)
 
 
     def scrape_item_detail_page(self, url, pageconfig_file, container_elem_attr_arr, output_file):
@@ -177,7 +186,7 @@ class scraper:
         listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
         csvwriter().writeToCsv(output_file, listings)
 
-        logging.info('COMPLETED: Extracted page to CSV')
+        logging.info('COMPLETED: Extracted item detail page to CSV')
  
     def soup_find(self, url, element_attr):
         """_summary_
