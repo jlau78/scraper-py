@@ -3,6 +3,7 @@ import logging
 import logging.config
 from bs4 import BeautifulSoup
 import requests
+import json
 from urllib.parse import urlparse, urlencode, parse_qsl, parse_qs
 
 from config.page_config import page_config
@@ -63,7 +64,7 @@ class scraper:
 
         logging.info('START: Extract elements from:%s, pageconfig:%s', url, pageconfig_filepath)
 
-        listings = []
+        listing_dict = {}
 
         foundElements = self.soup_find(url, container_elem_attr_array)
         logging.info('Found elements:%d for container element:%s', len(foundElements), container_elem_attr_array)
@@ -72,7 +73,7 @@ class scraper:
             logging.debug('soup_find %s, elements:%s', container_elem_attr_array, elements)
 
             b = soup_extractor()
-            row = []
+            row_dict = {}
             pageconfigs = page_config(pageconfig_filepath)
             headers = []
 
@@ -80,7 +81,7 @@ class scraper:
 
                 c = my_dict_wrapper(config)
 
-                logging.info('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c.collection())
+                logging.debug('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c.collection())
 
                 headers.append(c.get('name'))
                 value = None
@@ -117,20 +118,20 @@ class scraper:
                 else:
                     logging.debug('extracted value:%s', value)
 
-                row.append(value)
+                row_dict[name] = value
 
                 # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
                 if fk == True:
                     self.handleForeignKeyFound(value)
 
-            if row is None:
+            if len(row_dict) == 0:
                 logging.error('FATAL: Row is empty. Fail to extract any values with the page_config:%s, container element:%s'
                             , c, container_elem_attr_array)
             else:
-                listings.append(row)
+                listing_dict.update(row_dict)
+                # logging.info('listing_dict: %s', listing_dict)
 
-        # create_csv_headers(headers)
-        return listings
+        return listing_dict
 
 
     def create_csv_headers(self, headers):
@@ -149,7 +150,7 @@ class scraper:
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
         """   
 
-        output_file = './data/search-liisting-' + search_identifier + '.csv'
+        output_file = './data/search-listing-' + search_identifier + '.csv'
 
         for cur_page in range(1,max_num_pages):
             url = base_url.replace('ofset-value',  str(cur_page * result_size))
@@ -159,15 +160,13 @@ class scraper:
             listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
 
             if len(listings) > 0:
-                # logging.info('listings: %s', listings)
+                logging.debug('Write listings to csv: %s', list(listings.values())) 
                 csvwriter().writeToCsv(output_file, listings)
 
                 logging.info('COMPLETE: Extracted elements from given html page:')
                 logging.info(url)
 
-                # data = page_config.readPageElements(pageconfig_filepath)
-
-                # mongowriter().addToMongo(listings)
+                # mongowriter().addToMongo(json.dumps(listings))
             else:
                 logging.info('Listing is empty for area: %s', search_identifier)
         
@@ -194,7 +193,10 @@ class scraper:
         """        
 
         listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
+        logging.debug('Write listings to csv: %s', listings)
         csvwriter().writeToCsv(output_file, listings)
+
+        # mongowriter().addToMongo(json.dumps(listings))
 
         logging.info('COMPLETED: Extracted item detail page to CSV')
  

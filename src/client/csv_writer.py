@@ -11,30 +11,31 @@ class csvwriter:
         """Write the data rows to the CSV file"""
 
         if self.is_file_empty(file):
-            headers = ['Title', 'flatshare_id', 'Short Description', 'Full Description', 'Price', 'Thumbnail', 'Link']
+            headers = list(listings.keys())
             self.writeHeaderToCsv(file, headers)
 
         csvwriter().log.info('Write to CSV ' )
         with open(file, 'a', encoding='utf8', newline='') as f:
-            thewriter = writer(f)
-            for info in listings:
-                row = []
-                for keyvalue in info:
-                    if keyvalue is not None:
-                        row.append(str(keyvalue).strip())
-
-                thewriter.writerow(row)
-
-            f.close()
+            try:
+                thewriter = writer(f)
+                thewriter.writerow(list(listings.values()))
+            except:
+                logging.error('Fail to write the data to the csv file:%s', file)
+            finally:
+                f.close()
 
     def writeHeaderToCsv(self, file, headers):
         """Write the headers to the new CSV"""
 
         logging.info("CSV Headers written")
         with open(file, 'w', encoding='utf8', newline='') as f:
-            thewriter = writer(f)
-            thewriter.writerow(headers)
-            f.close()
+            try:
+                thewriter = writer(f)
+                thewriter.writerow(headers)
+            except:
+                logging.error('Fail to write the header to the csv file:%s', file)
+            finally:
+                f.close()
 
     def temp_remove_existing_csv(self, file):
         """Temp feature: Remove previous extract csv before scraping again"""
