@@ -35,12 +35,13 @@ class scraper:
                 responseUrl = response.url #.__getattribute__('search_id')
                 logging.info('responseUrl: %s', responseUrl)
                 searchIdValue = su.getQSFromUrl(responseUrl, 'search_id')
-                baseUrl = "https://www.spareroom.co.uk/flatshare/?&search_id=999999&sort_by=by_day&mode=list&offset=" 
-                searchUrl = su.patch_url(baseUrl, search_id=searchIdValue)
+                baseUrl = "https://www.spareroom.co.uk/flatshare/?&search_id=searchId-value&sort_by=by_day&mode=list&offset=ofset-value" 
+                # searchUrl = su.patch_url(baseUrl, search_id=searchIdValue)
+                searchUrl = baseUrl.replace('searchId-value', searchIdValue)
 
                 logging.info('Search for area %s => url: %s', area, searchUrl)
                 
-                self.scrape_listing_pages(searchUrl, pageconfig_file, max_search_page, search_page_size, container_elem_attr_arr, output_file)
+                self.scrape_listing_pages(area, searchUrl, pageconfig_file, max_search_page, search_page_size, container_elem_attr_arr)
         except:
             logging.error('Failed to get results for the area:%s', area)
 
@@ -135,20 +136,24 @@ class scraper:
         """Create the headers in the new CSV file"""
         csvwriter().writeHeaderToCsv(output_file, headers)
 
-    def scrape_listing_pages(self, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr, output_file):
+    def scrape_listing_pages(self, search_identifier, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr):
         """Iterate through search listing pages and extract articles
 
         Args:
+            search_identifier (string): search identifier for the listing page
             base_url (string): url of the search listing page 
             pageconfig_file (string): page_config config filepath
             max_num_pages (integer): max number of search pages to search
             result_size (integer): number of results per search listing
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
-            output_file (string): CSV file to output extracted data
         """   
 
+        output_file = './data/search-liisting-' + search_identifier + '.csv'
+
         for cur_page in range(1,max_num_pages):
-            url = base_url + str(cur_page * result_size)
+            url = base_url.replace('ofset-value',  str(cur_page * result_size))
+
+            logging.info('scrape_listing_pages for page %s, search url: %s', str(cur_page), url)
 
             listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
 
@@ -162,8 +167,10 @@ class scraper:
                 # data = page_config.readPageElements(pageconfig_filepath)
 
                 # mongowriter().addToMongo(listings)
+            else:
+                logging.info('Listing is empty for area: %s', search_identifier)
         
-        logging.info('COMPLETED: Extracted all search listings to CSV')
+        logging.info('COMPLETED: Extracted all search listings to CSV for %s', search_identifier)
 
     def scrape_spareroom_detail_page(self, fkid):
         pageconfig_file = 'config/spareroom_room_detail_config.json'
@@ -217,4 +224,4 @@ class scraper:
             fkcache.add(fkValue)
             self.scrape_spareroom_detail_page(fkValue) 
         else:
-            logging.info('Item with ForeignKey: %s already extracted', fkValue)
+            logging.info('Duplicate found: Item with ForeignKey: %s already extracted', fkValue)

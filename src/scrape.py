@@ -40,6 +40,7 @@ csvwriter().temp_remove_existing_csv(output_file)
 # ====================================
 
 
+output_file = "./data/sparerooms.csv"
 pageconfig_file = 'config/spareroom_search_listing_config.json'
 search_page_size = 10 
 max_search_page = 8
