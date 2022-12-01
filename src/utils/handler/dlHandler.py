@@ -38,6 +38,10 @@ class dlHandler(handler):
                 logging.debug('create map: index %d -> [%s, %s]', i, keys[i], values[i])
                 dict[keys[i]] = values[i]
 
-        logging.info('ddDtHandler result:%s', dict)
+        logging.debug('ddDtHandler result:%s', dict)
+
+        if not dict:
+            logging.warn('No <dd> or <dt> elements found. elements:%s', elements)
+
         return dict
 

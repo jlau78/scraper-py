@@ -10,9 +10,11 @@ from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
 from utils.extractor.html_extractor import soup_extractor
 from utils.string_utils import string_utils
+from service.cache.foreignkey_cache import foreignkey_cache
 
 log = logging.getLogger('Scraper')
 su = string_utils()
+fkcache = foreignkey_cache()
 
 class scraper:
 
@@ -65,8 +67,8 @@ class scraper:
         logging.info('Found elements:%d for container element:%s', len(foundElements), container_elem_attr_array)
 
         for elements in foundElements:
-
             logging.debug('soup_find %s, elements:%s', container_elem_attr_array, elements)
+
             b = soup_extractor()
             row = []
             pageconfigs = page_config.readPageElements(pageconfig_filepath)
@@ -117,7 +119,7 @@ class scraper:
 
                 # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
                 if fk == True:
-                   self.scrape_spareroom_detail_page(value) 
+                    self.handleForeignKeyFound(value)
 
             if row is None:
                 logging.error('FATAL: Row is empty. Fail to extract any values with the page_config:%s, container element:%s'
@@ -204,4 +206,15 @@ class scraper:
         # lists = soup.find_all('article', class_="panel-listing-result")
         return soup.find_all(element_attr[0], class_= element_attr[1])
 
- 
+
+    def handleForeignKeyFound(self, fkValue):
+        """If the foreignkey_cache does not have the given fk, then add the fk to this cache and extract the item details
+
+        Args:
+            fkValue (string): foreign key value to handle
+        """        
+        if fkcache.find(fkValue) is False:
+            fkcache.add(fkValue)
+            self.scrape_spareroom_detail_page(fkValue) 
+        else:
+            logging.info('Item with ForeignKey: %s already extracted', fkValue)

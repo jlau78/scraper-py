@@ -4,9 +4,12 @@
 
 In the terminal 
 - mkdir data
-- pip install beautifulsoup4
-- pip install requests
-- pip install pymongo
+- Install dependencies
+    pip install beautifulsoup4
+    pip install requests
+    pip install pymongo
+    pip install typing
+
 - Run the scraper: `python3 scrape.py`
 
 

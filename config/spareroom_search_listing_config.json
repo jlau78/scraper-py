@@ -14,7 +14,6 @@
     {
         "name": "title",
         "container": null,
-        "foreignkey": false,
         "element_name": "h2",
         "class_names": null,
         "attributes": null,
