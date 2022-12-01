@@ -2,7 +2,6 @@
 
     {
         "name": "flatshare_id",
-        "container": null,
         "foreignkey": true,
         "element_name": null,
         "class_names": "listing-result",
@@ -13,7 +12,6 @@
     },
     {
         "name": "title",
-        "container": null,
         "element_name": "h2",
         "class_names": null,
         "attributes": null,
@@ -21,7 +19,6 @@
     },
     {
         "name": "shortDesc",
-        "container": null,
         "element_name": "em",
         "class_names": [
             "shortDescription"
@@ -31,7 +28,6 @@
     },
     {
         "name": "fullDesc",
-        "container": null,
         "element_name": "p",
         "class_names": [
             "description"
@@ -41,7 +37,6 @@
     },
     {
         "name": "price",
-        "container": null,
         "element_name": "strong",
         "class_names": [
             "listingPrice"
@@ -61,7 +56,6 @@
     },
     {
         "name": "link",
-        "container": null,
         "element_name": "a",
         "class_names": null,
         "attributes": ["href"],

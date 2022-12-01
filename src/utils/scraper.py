@@ -10,6 +10,7 @@ from client.mongo_writer import mongowriter
 from client.csv_writer import csvwriter
 from utils.extractor.html_extractor import soup_extractor
 from utils.string_utils import string_utils
+from utils.collection_utils import my_dict_wrapper
 from service.cache.foreignkey_cache import foreignkey_cache
 
 log = logging.getLogger('Scraper')
@@ -72,43 +73,43 @@ class scraper:
 
             b = soup_extractor()
             row = []
-            pageconfigs = page_config.readPageElements(pageconfig_filepath)
+            pageconfigs = page_config(pageconfig_filepath)
             headers = []
 
-            for c in pageconfigs:
-                log.info('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c)
+            for config in pageconfigs.allConfigs():
 
-                headers.append(c['name'])
+                c = my_dict_wrapper(config)
+
+                logging.info('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c.collection())
+
+                headers.append(c.get('name'))
                 value = None
 
-                get_text = c['text']
-                fk = False
-                if "foreignkey" in c:
-                    fk = c['foreignkey']
-
-                hasMany = False
-                if "multiple_key_value" in c:
-                    hasMany = c['multiple_key_value']
-
-                container = None
-                if "container" in c:
-                    container = c['container']
+                get_text = c.get('text')
+                attributes = c.get('attributes')
+                fk = c.get('foreignkey')
+                hasMany = c.get('multiple_key_value')
+                container = c.get('container')
+                name = c.get('name')
+                element_name = c.get('element_name')
+                class_names = c.get('class_names')
 
                 if not container == None:
-                    elements = elements.find(c['container'])
+                    elements = elements.find(container)
                     log.debug("Nested tag:%s", elements)
 
+
                 if hasMany is True:
-                    elements = self.soup_find(url, [c['element_name'], c['class_names']])
-                    extractedString = b.extractMultipleKeyValues( elements, c['name'], c['element_name'])
+                    elements = self.soup_find(url, [element_name, class_names])
+                    extractedString = b.extractMultipleKeyValues( elements, name, element_name)
                     value = extractedString
                     logging.debug('extract hasMany: config:%s, value:%s', c, value)
 
                 elif get_text is True:
-                    value = b.extractElementTextValue(c['name'], elements, c['element_name'], c['class_names'])
+                    value = b.extractElementTextValue(name, elements, element_name, class_names)
                     logging.debug('extract text value: config:%s, value:%s', c, value)
                 else:
-                    value = b.extractElementAttributeValue(c['name'], elements, c['element_name'], c['class_names'], c['attributes'][0])
+                    value = b.extractElementAttributeValue(name, elements, element_name, class_names, attributes[0])
                     logging.debug('extract attribute value: config:%s, value:%s', c, value)
 
                 if value is None:

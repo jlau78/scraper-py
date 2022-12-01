@@ -62,6 +62,9 @@ class string_utils:
         Returns:
             string: given url with the query string replaced
         """        
+
+        # TODO: Bug urlencode appears to cause problems as encountered in the spareroom url querystring &offset=
+
         return urlparse(url)._replace(query=urlencode(
             dict(parse_qs(urlparse(url).query), **kwargs))).geturl()
     
