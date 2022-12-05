@@ -4,10 +4,11 @@ import logging.config
 from bs4 import BeautifulSoup
 import requests
 import json
+import datetime
 from urllib.parse import urlparse, urlencode, parse_qsl, parse_qs
 
 from config.page_config import page_config
-from client.mongo_writer import mongowriter
+from client.mongo_spareroom import mongo_spareroom
 from client.csv_writer import csvwriter
 from utils.extractor.html_extractor import soup_extractor
 from utils.string_utils import string_utils
@@ -17,6 +18,7 @@ from service.cache.foreignkey_cache import foreignkey_cache
 log = logging.getLogger('Scraper')
 su = string_utils()
 fkcache = foreignkey_cache()
+mongo = mongo_spareroom()
 
 class scraper:
 
@@ -37,7 +39,7 @@ class scraper:
                 responseUrl = response.url #.__getattribute__('search_id')
                 logging.info('responseUrl: %s', responseUrl)
                 searchIdValue = su.getQSFromUrl(responseUrl, 'search_id')
-                baseUrl = "https://www.spareroom.co.uk/flatshare/?&search_id=searchId-value&sort_by=by_day&mode=list&offset=ofset-value" 
+                baseUrl = "https://www.spareroom.co.uk/flatshare/?&search_id=searchId-value&sort_by=by_day&mode=list&offset=offset-value" 
                 # searchUrl = su.patch_url(baseUrl, search_id=searchIdValue)
                 searchUrl = baseUrl.replace('searchId-value', searchIdValue)
 
@@ -49,7 +51,7 @@ class scraper:
 
  
 
-    def extractPageElements(self, url, pageconfig_filepath, container_elem_attr_array):
+    def extractPageElements(self, area, url, pageconfig_filepath, container_elem_attr_array):
         """
             Extract the values from the page elements defined by the page_config
 
@@ -81,7 +83,7 @@ class scraper:
 
                 c = my_dict_wrapper(config)
 
-                logging.debug('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c.collection())
+                logging.info('debug: pageconfig %s defined elements to extract values:%s', pageconfig_filepath, c.collection())
 
                 headers.append(c.get('name'))
                 value = None
@@ -122,7 +124,7 @@ class scraper:
 
                 # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
                 if fk == True:
-                    self.handleForeignKeyFound(value)
+                    self.handleForeignKeyFound(area, value)
 
             if len(row_dict) == 0:
                 logging.error('FATAL: Row is empty. Fail to extract any values with the page_config:%s, container element:%s'
@@ -138,7 +140,7 @@ class scraper:
         """Create the headers in the new CSV file"""
         csvwriter().writeHeaderToCsv(output_file, headers)
 
-    def scrape_listing_pages(self, search_identifier, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr):
+    def scrape_listing_pages(self, area, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr):
         """Iterate through search listing pages and extract articles
 
         Args:
@@ -150,39 +152,39 @@ class scraper:
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
         """   
 
-        output_file = './data/search-listing-' + search_identifier + '.csv'
+        output_file = './data/search-listing-' + area + '.csv'
 
         for cur_page in range(1,max_num_pages):
-            url = base_url.replace('ofset-value',  str(cur_page * result_size))
+            url = base_url.replace('offset-value',  str(cur_page * result_size))
 
             logging.info('scrape_listing_pages for page %s, search url: %s', str(cur_page), url)
 
-            listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
+            listings = self.extractPageElements(area, url, pageconfig_file, container_elem_attr_arr)
 
             if len(listings) > 0:
                 logging.debug('Write listings to csv: %s', list(listings.values())) 
                 csvwriter().writeToCsv(output_file, listings)
 
-                logging.info('COMPLETE: Extracted elements from given html page:')
+                logging.info('COMPLETE: Extracted elements from given html page:%s', cur_page)
                 logging.info(url)
 
-                # mongowriter().addToMongo(json.dumps(listings))
+                # mongowriter().write(json.dumps(listings))
             else:
-                logging.info('Listing is empty for area: %s', search_identifier)
+                logging.info('Listing is empty for area: %s', area)
         
-        logging.info('COMPLETED: Extracted all search listings to CSV for %s', search_identifier)
+        logging.info('COMPLETED: Extracted all search listings to CSV for %s', area)
 
-    def scrape_spareroom_detail_page(self, fkid):
+    def scrape_spareroom_detail_page(self, area, fkid):
         pageconfig_file = 'config/spareroom_room_detail_config.json'
         output_file = './data/sparerooms_room_' + fkid + '.csv'
         url = 'https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=' + fkid
         room_detail_container_element =  ['div', 'listing listing--property layoutrow']
 
         logging.info('Get spareroom room detail for flatshareId:%s, output:%s', fkid, output_file)
-        self.scrape_item_detail_page(url, pageconfig_file, room_detail_container_element, output_file)
+        self.scrape_item_detail_page(url, area, fkid, pageconfig_file, room_detail_container_element, output_file)
 
 
-    def scrape_item_detail_page(self, url, pageconfig_file, container_elem_attr_arr, output_file):
+    def scrape_item_detail_page(self, url, area, fkid, pageconfig_file, container_elem_attr_arr, output_file):
         """Scrape item detail page
 
         Args:
@@ -192,11 +194,11 @@ class scraper:
             output_file (string): CSV file to output extracted data
         """        
 
-        listings = self.extractPageElements(url, pageconfig_file, container_elem_attr_arr)
-        logging.debug('Write listings to csv: %s', listings)
-        csvwriter().writeToCsv(output_file, listings)
+        listing_dict = self.extractPageElements(area, url, pageconfig_file, container_elem_attr_arr)
+        listing_dict = self.applyAttributes(listing_dict, area)
+        csvwriter().writeToCsv(output_file, listing_dict)
 
-        # mongowriter().addToMongo(json.dumps(listings))
+        mongo.upsert({"flatshare_id": fkid}, listing_dict)
 
         logging.info('COMPLETED: Extracted item detail page to CSV')
  
@@ -204,7 +206,7 @@ class scraper:
         """_summary_
 
         Args:
-            url (string): Page url for extraction
+            url (string): Page url for extractionncw
             element_attr (array): Array [element, classname] for bs4.find_all to get all elements
 
         Returns:
@@ -217,7 +219,7 @@ class scraper:
         return soup.find_all(element_attr[0], class_= element_attr[1])
 
 
-    def handleForeignKeyFound(self, fkValue):
+    def handleForeignKeyFound(self, area, fkValue):
         """If the foreignkey_cache does not have the given fk, then add the fk to this cache and extract the item details
 
         Args:
@@ -225,6 +227,22 @@ class scraper:
         """        
         if fkcache.find(fkValue) is False:
             fkcache.add(fkValue)
-            self.scrape_spareroom_detail_page(fkValue) 
+            self.scrape_spareroom_detail_page(area, fkValue) 
         else:
             logging.info('Duplicate found: Item with ForeignKey: %s already extracted', fkValue)
+
+    def applyAttributes(self, listing_dict, area):
+        """Apply metadata attributes to the item
+
+        Args:
+            listing_dict (dict): Listing dictionary item to append attribute
+            area (string): 'nearest' area where the listing was found
+        """        
+        d = listing_dict
+        d['area'] = area
+        d['created'] = str(datetime.datetime.now())
+        d['updated'] = ''
+        d['is_bold'] = "false"
+        
+        return d
+

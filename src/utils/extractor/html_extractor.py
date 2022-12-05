@@ -61,8 +61,13 @@ class soup_extractor:
         print('Verify if value is valid and perform any cleanup')
         return value;
     
+    # Cache of extracted items' keys used for duplicate checks
+    extractedKeys = []
 
     def duplicateCheck(self, key):
+        alreadyExist = false
+        
+
         return key;
 
     
