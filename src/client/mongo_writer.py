@@ -33,8 +33,12 @@ class mongowriter():
         x = self.collection.insert_one(jsondata)
         logging.info('Write dictionary data to mongodb collection:%s', jsondata['flatshare_id'])
 
+    def update_one(self, query, jsondata):
+
+        self.collection.update_one(query, {'$set': jsondata})
+
     def upsert(self, query, jsondata):
-        """_summary_
+        """Upsert the record
 
         Args:
             query (dict): mongo query parameters

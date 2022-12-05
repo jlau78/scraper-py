@@ -14,7 +14,7 @@ class csvwriter:
             headers = list(listings.keys())
             self.writeHeaderToCsv(file, headers)
 
-        csvwriter().log.info('Write to CSV ' )
+        logging.info('Write to CSV ' )
         with open(file, 'a', encoding='utf8', newline='') as f:
             try:
                 thewriter = writer(f)

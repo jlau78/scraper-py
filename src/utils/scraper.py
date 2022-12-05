@@ -181,26 +181,37 @@ class scraper:
         room_detail_container_element =  ['div', 'listing listing--property layoutrow']
 
         logging.info('Get spareroom room detail for flatshareId:%s, output:%s', fkid, output_file)
-        self.scrape_item_detail_page(url, area, fkid, pageconfig_file, room_detail_container_element, output_file)
+        self.scrape_item_detail_page(url, area, {"flatshare_id": fkid}, pageconfig_file, room_detail_container_element, output_file)
 
 
-    def scrape_item_detail_page(self, url, area, fkid, pageconfig_file, container_elem_attr_arr, output_file):
+    def scrape_item_detail_page(self, url, area, fkid_query, pageconfig_file, container_elem_attr_arr, output_file):
         """Scrape item detail page
 
         Args:
             url (string): url of the item detail
+            area (string): area name
+            fkid_query (dict): dict mongo query eg {"flatshare_id": fkid}
             pageconfig_file (string): page_config config filepath
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
             output_file (string): CSV file to output extracted data
         """        
 
         listing_dict = self.extractPageElements(area, url, pageconfig_file, container_elem_attr_arr)
-        listing_dict = self.applyAttributes(listing_dict, area)
+
+        listing_dict = self.applyCreateAttributes(listing_dict, area)
+
         csvwriter().writeToCsv(output_file, listing_dict)
 
-        mongo.upsert({"flatshare_id": fkid}, listing_dict)
+        doc = mongo.find(fkid_query)
+        logging.info('debug: mongo find query:%s, result:%s', fkid_query, doc)
+        if doc is None:
+            d = self.applyCreateAttributes(listing_dict, area)
+            mongo.write(d)
+        else:
+            d = self.applyUpdateAttributes(listing_dict, area)
+            mongo.update_one(fkid_query, d)
 
-        logging.info('COMPLETED: Extracted item detail page to CSV')
+        logging.info('COMPLETED: Extracted item detail page to CSV and mongodb')
  
     def soup_find(self, url, element_attr):
         """_summary_
@@ -231,8 +242,8 @@ class scraper:
         else:
             logging.info('Duplicate found: Item with ForeignKey: %s already extracted', fkValue)
 
-    def applyAttributes(self, listing_dict, area):
-        """Apply metadata attributes to the item
+    def applyCreateAttributes(self, listing_dict, area):
+        """Apply metadata attributes to the new item
 
         Args:
             listing_dict (dict): Listing dictionary item to append attribute
@@ -240,9 +251,33 @@ class scraper:
         """        
         d = listing_dict
         d['area'] = area
+        d['area_codes']  = [area]
         d['created'] = str(datetime.datetime.now())
         d['updated'] = ''
         d['is_bold'] = "false"
         
+        logging.info('applyCreateAttributes: %s', d)
         return d
 
+    def applyUpdateAttributes(self, listing_dict, area):
+        """Apply metadata attributes to the update item
+
+        Args:
+            listing_dict (dict): Listing dictionary item to append attributes
+            area (string): 'nearest' area where the listing was found
+
+        Returns:
+            _type_: _description_
+        """        
+        d = listing_dict
+        d['updated'] = str(datetime.datetime.now())
+        areas = d['area_codes']
+        if areas is not None and area not in areas :
+           d['area_codes']  = areas.append(area)
+        elif areas is None:
+            areas = [area]
+        d['area_codes'] = areas
+
+        logging.info('applyUpdateAttributes:%s', d)
+
+        return d
