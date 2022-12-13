@@ -1,8 +1,19 @@
 [
     {
+        "name": "flatshare_id",
+        "container": null,
+        "element_name": "div",
+        "class_names": [
+            "share"
+        ],
+        "attributes": [
+            "data-advert-id"
+        ],
+        "text": false
+    },
+    {
         "name": "fullDescription",
         "container": null,
-        "multiple_key_value": false,
         "element_name": "p",
         "class_names": [
             "detaildesc"
@@ -13,8 +24,8 @@
     {
         "name": "thumbnails",
         "container": null,
-        "multiple_key_value": false,
         "element_name": "a",
+        "many": true,
         "class_names": [
             "photoswipe_me img"
         ],
@@ -26,7 +37,6 @@
     {
         "name": "price",
         "container": null,
-        "multiple_key_value": false,
         "element_name": "strong",
         "class_names": [
             "room-list__price"
@@ -37,7 +47,6 @@
     {
         "name": "key features",
         "container": null,
-        "multiple_key_value": false,
         "element_name": "li",
         "class_names": [
             "key-features__feature"

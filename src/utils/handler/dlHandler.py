@@ -4,7 +4,9 @@ from utils.handler.handler import handler
 
 su = string_utils()
 
-class ddDtHandler(handler):
+class dlHandler(handler):
+    """Handler to extract the <dl> element children: <dt> and <dd>
+    """    
 
     def __init__(self) -> None:
         super().__init__()
@@ -19,15 +21,16 @@ class ddDtHandler(handler):
             config (page_config): page_config config element. eg config['name'] or config['element_name']
         """
         dict = {}
+        # TODO: Remove hardcoded find_all call
         for element in elements:
-            logging.debug('ddDtHandler handle - config:%s, element:%s', config, element)
+            logging.debug('dlHandler handle - config:%s, element:%s', config, element)
             keys = []
-            alldt = element.find_all('dt', 'feature-list__key')
+            alldt = element.find_all('dt')
             for dt in alldt:
                     keys.append(su.clean(dt.text))
 
             values = []
-            alldd = element.find_all('dd', 'feature-list__value')
+            alldd = element.find_all('dd')
             for dd in alldd:
                 values.append(su.clean(dd.text))
 
@@ -35,6 +38,10 @@ class ddDtHandler(handler):
                 logging.debug('create map: index %d -> [%s, %s]', i, keys[i], values[i])
                 dict[keys[i]] = values[i]
 
-        logging.info('ddDtHandler result:%s', dict)
+        logging.debug('ddDtHandler result:%s', dict)
+
+        if not dict:
+            logging.warn('No <dd> or <dt> elements found. elements:%s', elements)
+
         return dict
 
