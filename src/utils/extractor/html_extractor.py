@@ -20,9 +20,20 @@ class soup_extractor:
         return self.extractElementValue(source, element, classname, attribute, False)
 
     def extractMultipleKeyValues(self, elements, name, element_name):
+        """Extract the values from multiple child elements. 
+
+        Args:
+            elements (array): List of page elements to process
+            name (string): Name of this extract used as the key/header value
+            element_name (string): Parent element whose child elements' values will be extracted
+
+        Returns:
+            _type_: Dict of multiple KV pairs eg attributes for a <dl> child elements
+        """        
         if element_name == 'dl':
             extractedString = dlHandler.handle(elements, element_name)
         elif element_name == 'ul':
+            # TODO: Move to own method and handle element_name and class
             extractedString = ulHandler.handle(elements, element_name)
         
         return extractedString

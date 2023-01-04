@@ -8,9 +8,7 @@ from utils.string_utils import string_utils
 su = string_utils()
 class mongowriter():
 
-    client = pymongo.MongoClient("mongodb://winhost:27017")
-    # shopDb = client['spareroom']
-    # collection = shopDb['rooms']
+    client = pymongo.MongoClient("mongodb://yogatop.local:27017")
     shopDb = None
     collection = None
 
@@ -31,7 +29,7 @@ class mongowriter():
 
     def write(self, jsondata):
         x = self.collection.insert_one(jsondata)
-        logging.info('Write dictionary data to mongodb collection:%s', jsondata['flatshare_id'])
+        logging.info('Write dictionary data to mongodb collection:%s', jsondata['itemId'])
 
     def update_one(self, query, jsondata):
 

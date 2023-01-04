@@ -18,21 +18,19 @@
         "text": true
     },
     {
-        "name": "shortDesc",
+        "name": "shortDescription",
         "element_name": "em",
         "class_names": [
             "shortDescription"
         ],
-        "attributes": null,
         "text": true
     },
     {
-        "name": "fullDesc",
+        "name": "fullDescription",
         "element_name": "p",
         "class_names": [
             "description"
         ],
-        "attributes": null,
         "text": true
     },
     {

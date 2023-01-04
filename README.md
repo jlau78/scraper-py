@@ -1,6 +1,6 @@
 # Study: Python program to scrape sites using the BeautifulSoup library
 
-## Steps
+## Setup and Run scrape.py Script
 
 In the terminal 
 - mkdir data
@@ -23,10 +23,6 @@ PS C:\work\code\broex\analysis\scraper-py> python.exe src\scrape.py
 2022-11-11 00:24:35,905 - Extractor - INFO - https://www.spareroom.co.uk/flatshare/?offset=10&search_id=1177415351&sort_by=by_day&mode=list
 
 ```
-
-## Draw.io
-
-Install the Draw.io application to view the ./scraper-overview.drawio diagram.
 
 
 ## Search By Area
@@ -60,12 +56,18 @@ Example:
 
 ### Element extraction configuration definitions
 
-- name: "feature-list" > Meta data of the element. Can be used as the header.
-- "container": "figure"  > Container element of the element to search for
+- name: "feature-list" -> Meta data of the element. Can be used as the header.
+- "container": "figure"  -> Container element of the element to search for
 - 
 
 Either the element's attribute or text value can be extracted.
 
-- text: true > this element text value will be extracted eg. <p>Welcome to my listing</p>
-- attributes: "href" > This element's href attribute value is extracted eg <a href='//photo/room/111111/small.jpg>
+- text: true -> this element text value will be extracted eg. `<p>Welcome to my listing</p>`
+- attributes: "href" -> This element's href attribute value is extracted eg `<a href='//photo/room/111111/small.jpg>`
+
+
+## Appendix
+### Draw.io
+
+Install the Draw.io application to view the ./scraper-overview.drawio diagram.
 

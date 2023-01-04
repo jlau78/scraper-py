@@ -15,8 +15,8 @@ class test_mongo(unittest.TestCase):
     mongo = mongo_spareroom()
 
     def test_find_one(self):
-        # log.info('find item by flatshare_id: %s', mongo.find(query))
-        query = {"flatshare_id": "15598648"}
+        # log.info('find item by itemId: %s', mongo.find(query))
+        query = {"itemId": "15598648"}
         row = self.mongo.find(query)
 
         self.assertIsNotNone(row)
