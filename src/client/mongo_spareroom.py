@@ -4,7 +4,7 @@ from client.mongo_writer import mongowriter
 class mongo_spareroom(mongowriter):
 
     dbname = 'spareroom'
-    collection = 'rooms'
+    collection = 'items'
 
     def __init__(self, dbname, collection):
         super().__init__(dbname, collection)

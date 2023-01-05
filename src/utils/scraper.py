@@ -1,6 +1,7 @@
 import sys
 import logging
 import logging.config
+import traceback
 from bs4 import BeautifulSoup
 import requests
 import json
@@ -48,6 +49,7 @@ class scraper:
                 self.scrape_listing_pages(area, searchUrl, pageconfig_file, max_search_page, search_page_size, container_elem_attr_arr)
         except:
             logging.error('Failed to get results for the area:%s', area)
+            traceback.print_exc()
 
  
 
@@ -91,22 +93,24 @@ class scraper:
                 get_text = c.get('text')
                 attributes = c.get('attributes')
                 fk = c.get('foreignkey')
-                hasMany = c.get('multiple_key_value')
+                hasManyKV = c.get('multiple_key_value')
+                hasManyElements = c.get('many')
                 container = c.get('container')
                 name = c.get('name')
                 element_name = c.get('element_name')
                 class_names = c.get('class_names')
 
                 if not container == None:
+                    log.info('evaluating container')
                     elements = elements.find(container)
-                    log.debug("Nested tag:%s", elements)
+                    log.info("Nested tag:%s", elements)
 
 
-                if hasMany is True:
+                if hasManyKV is True:
                     elements = self.soup_find(url, [element_name, class_names])
                     extractedString = b.extractMultipleKeyValues( elements, name, element_name)
                     value = extractedString
-                    logging.debug('extract hasMany: config:%s, value:%s', c, value)
+                    logging.debug('extract hasManyKV: config:%s, value:%s', c, value)
 
                 elif get_text is True:
                     value = b.extractElementTextValue(name, elements, element_name, class_names)
@@ -122,7 +126,7 @@ class scraper:
 
                 row_dict[name] = value
 
-                # TODO: Meke scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
+                # TODO: Make scrape_spareroom_detail_page() call handle generic url, pageconfig_file, and output csv file
                 if fk == True:
                     self.handleForeignKeyFound(area, value)
 
@@ -136,9 +140,9 @@ class scraper:
         return listing_dict
 
 
-    def create_csv_headers(self, headers):
-        """Create the headers in the new CSV file"""
-        csvwriter().writeHeaderToCsv(output_file, headers)
+    # def create_csv_headers(self, headers):
+    #     """Create the headers in the new CSV file"""
+    #     csvwriter().writeHeaderToCsv(output_file, headers)
 
     def scrape_listing_pages(self, area, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr):
         """Iterate through search listing pages and extract articles
@@ -152,12 +156,15 @@ class scraper:
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
         """   
 
-        output_file = './data/search-listing-' + area + '.csv'
+        output_file = './data/search-listing-' + area.replace(" ", "_") + '.csv'
+        # TODO: Review workaround. Area list from file appends \n to the value, so need to remove
+        output_file = output_file.replace("\n", "")
 
-        for cur_page in range(1,max_num_pages):
+        # TODO: Bug: Did not iterate through search listing page for Wandworth and Lancaster Gate, but worked for Holland Park
+        for cur_page in range(0,max_num_pages):
             url = base_url.replace('offset-value',  str(cur_page * result_size))
 
-            logging.info('scrape_listing_pages for page %s, search url: %s', str(cur_page), url)
+            logging.info('scrape_listing_pages for page %s, maxNumPages: %s, search url: %s', str(cur_page), str(max_num_pages), url)
 
             listings = self.extractPageElements(area, url, pageconfig_file, container_elem_attr_arr)
 
@@ -171,17 +178,24 @@ class scraper:
                 # mongowriter().write(json.dumps(listings))
             else:
                 logging.info('Listing is empty for area: %s', area)
-        
+       
         logging.info('COMPLETED: Extracted all search listings to CSV for %s', area)
+        
 
     def scrape_spareroom_detail_page(self, area, fkid):
+        """_summary_
+
+        Args:
+            area (_type_): _description_
+            fkid (_type_): _description_
+        """        
         pageconfig_file = 'config/spareroom_room_detail_config.json'
         output_file = './data/sparerooms_room_' + fkid + '.csv'
         url = 'https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=' + fkid
         room_detail_container_element =  ['div', 'listing listing--property layoutrow']
 
         logging.info('Get spareroom room detail for flatshareId:%s, output:%s', fkid, output_file)
-        self.scrape_item_detail_page(url, area, {"flatshare_id": fkid}, pageconfig_file, room_detail_container_element, output_file)
+        self.scrape_item_detail_page(url, area, {"itemId": fkid}, pageconfig_file, room_detail_container_element, output_file)
 
 
     def scrape_item_detail_page(self, url, area, fkid_query, pageconfig_file, container_elem_attr_arr, output_file):
@@ -190,7 +204,7 @@ class scraper:
         Args:
             url (string): url of the item detail
             area (string): area name
-            fkid_query (dict): dict mongo query eg {"flatshare_id": fkid}
+            fkid_query (dict): dict mongo query eg {"itemId": fkid}
             pageconfig_file (string): page_config config filepath
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
             output_file (string): CSV file to output extracted data
@@ -203,7 +217,7 @@ class scraper:
         csvwriter().writeToCsv(output_file, listing_dict)
 
         doc = mongo.find(fkid_query)
-        logging.info('debug: mongo find query:%s, result:%s', fkid_query, doc)
+        logging.debug('mongo find query:%s, result:%s', fkid_query, doc)
         if doc is None:
             d = self.applyCreateAttributes(listing_dict, area)
             mongo.write(d)
@@ -256,7 +270,7 @@ class scraper:
         d['updated'] = ''
         d['is_bold'] = "false"
         
-        logging.info('applyCreateAttributes: %s', d)
+        logging.debug('applyCreateAttributes: %s', d)
         return d
 
     def applyUpdateAttributes(self, listing_dict, area):
@@ -278,6 +292,6 @@ class scraper:
             areas = [area]
         d['area_codes'] = areas
 
-        logging.info('applyUpdateAttributes:%s', d)
+        logging.debug('applyUpdateAttributes:%s', d)
 
         return d

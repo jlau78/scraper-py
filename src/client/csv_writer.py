@@ -2,6 +2,7 @@ import logging
 from csv import writer
 from csv import DictWriter
 import os
+import shutil
 
 class csvwriter:
 
@@ -37,10 +38,21 @@ class csvwriter:
             finally:
                 f.close()
 
-    def temp_remove_existing_csv(self, file):
-        """Temp feature: Remove previous extract csv before scraping again"""
-        if os.path.exists(file):
-            os.remove(file)
+    def temp_remove_existing_csv(self, dirpath):
+        """
+        Temp feature: Remove previous extract csv before scraping again
+
+        Args:
+            dirpath (string): directory path to remove
+        
+        """
+        try:
+            if os.path.exists(dirpath) and os.path.isdir(dirpath):
+                shutil.rmtree(dirpath)
+                os.makedirs(dirpath)
+
+        except Exception as e:
+            logging.error('Fail to remove the directory contents:%s', dirpath)
 
     def is_file_empty(self, file_path):
         return not os.path.exists(file_path) or os.path.exists(file_path) and os.stat(file_path).st_size == 0

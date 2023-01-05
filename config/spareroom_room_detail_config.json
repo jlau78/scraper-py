@@ -1,6 +1,6 @@
 [
     {
-        "name": "flatshare_id",
+        "name": "itemId",
         "container": null,
         "element_name": "div",
         "class_names": [
@@ -10,6 +10,14 @@
             "data-advert-id"
         ],
         "text": false
+    },
+    {
+        "name": "description",
+        "container": null,
+        "element_name": "h1",
+        "class_names": null,
+        "attributes": null,
+        "text": true
     },
     {
         "name": "fullDescription",
@@ -45,7 +53,7 @@
         "text": true
     },
     {
-        "name": "key features",
+        "name": "keyFeatures",
         "container": null,
         "element_name": "li",
         "class_names": [
@@ -55,7 +63,7 @@
         "text": true
     },
     {
-        "name": "feature-list",
+        "name": "featureList",
         "container": null,
         "multiple_key_value": true,
         "element_name": "dl",

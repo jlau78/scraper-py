@@ -15,8 +15,8 @@ mongo = mongo_spareroom()
 # rows = mongo.findAll()
 # logging.info('Inserted rows: %s', rows)
 
-query = {"flatshare_id": "15598648"}
-log.info('find item by flatshare_id: %s', mongo.find(query))
+query = {"itemId": "15598648"}
+log.info('find item by itemId: %s', mongo.find(query))
 
 
 # test_mongo().test_find_one()
