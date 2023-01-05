@@ -1,6 +1,7 @@
 import sys
 import logging
 import logging.config
+import traceback
 from bs4 import BeautifulSoup
 import requests
 import json
@@ -48,6 +49,7 @@ class scraper:
                 self.scrape_listing_pages(area, searchUrl, pageconfig_file, max_search_page, search_page_size, container_elem_attr_arr)
         except:
             logging.error('Failed to get results for the area:%s', area)
+            traceback.print_exc()
 
  
 
@@ -138,9 +140,9 @@ class scraper:
         return listing_dict
 
 
-    def create_csv_headers(self, headers):
-        """Create the headers in the new CSV file"""
-        csvwriter().writeHeaderToCsv(output_file, headers)
+    # def create_csv_headers(self, headers):
+    #     """Create the headers in the new CSV file"""
+    #     csvwriter().writeHeaderToCsv(output_file, headers)
 
     def scrape_listing_pages(self, area, base_url, pageconfig_file, max_num_pages, result_size, container_elem_attr_arr):
         """Iterate through search listing pages and extract articles
@@ -154,12 +156,15 @@ class scraper:
             container_elem_attr_arr (array): [element, classname] array element of the containing element to find_all on
         """   
 
-        output_file = './data/search-listing-' + area + '.csv'
+        output_file = './data/search-listing-' + area.replace(" ", "_") + '.csv'
+        # TODO: Review workaround. Area list from file appends \n to the value, so need to remove
+        output_file = output_file.replace("\n", "")
 
-        for cur_page in range(1,max_num_pages):
+        # TODO: Bug: Did not iterate through search listing page for Wandworth and Lancaster Gate, but worked for Holland Park
+        for cur_page in range(0,max_num_pages):
             url = base_url.replace('offset-value',  str(cur_page * result_size))
 
-            logging.info('scrape_listing_pages for page %s, search url: %s', str(cur_page), url)
+            logging.info('scrape_listing_pages for page %s, maxNumPages: %s, search url: %s', str(cur_page), str(max_num_pages), url)
 
             listings = self.extractPageElements(area, url, pageconfig_file, container_elem_attr_arr)
 
@@ -173,8 +178,9 @@ class scraper:
                 # mongowriter().write(json.dumps(listings))
             else:
                 logging.info('Listing is empty for area: %s', area)
-        
+       
         logging.info('COMPLETED: Extracted all search listings to CSV for %s', area)
+        
 
     def scrape_spareroom_detail_page(self, area, fkid):
         """_summary_

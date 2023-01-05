@@ -1,7 +1,7 @@
 [
 
     {
-        "name": "flatshare_id",
+        "name": "itemId",
         "foreignkey": true,
         "element_name": null,
         "class_names": "listing-result",

@@ -27,7 +27,7 @@ scraper = scraper()
 # search_page_size = 10 
 # max_search_page = 8
 # TODO: temp feature: clean existing before writeToCsv
-# csvwriter().temp_remove_existing_csv(output_file)
+# csvwriter().temp_remove_existing_csv("./data")
 
 # scraper.scrape_listing_pages(url, pageconfig_file, max_search_page, search_page_size, ['li', 'listing-result'], output_file)
 # scraper.searchByArea('Wandsworth', 'offered', pageconfig_file, max_search_page, search_page_size, ['li', 'listing-result'], output_file)
@@ -55,7 +55,7 @@ def test_scrape_room_detail(itemId):
     pageconfig_file = 'config/spareroom_room_detail_config.json'
     url = "https://www.spareroom.co.uk/flatshare/flatshare_detail.pl?flatshare_id=" + itemId
     # TODO: temp feature: clean existing before writeToCsv
-    csvwriter().temp_remove_existing_csv(output_file)
+    csvwriter().temp_remove_existing_csv("./data")
 
     scraper.scrape_item_detail_page(url, pageconfig_file, ['div', 'free_listing'], output_file)
     # fn = lambda soup.find_all('li', class_="listing-result")
@@ -69,10 +69,12 @@ def scrape_by_area():
     output_file = "./data/sparerooms.csv"
     pageconfig_file = 'config/spareroom_search_listing_config.json'
     search_page_size = 10 
+
+    # TODO: Fix hard-coded max search pages to make it dynamic
     max_search_page = 8
 
     # TODO: temp feature: clean existing before writeToCsv
-    csvwriter().temp_remove_existing_csv(output_file)
+    csvwriter().temp_remove_existing_csv("./data")
 
     with open(areaListFile, "r") as areas:
         for line in areas:
@@ -80,4 +82,9 @@ def scrape_by_area():
             scraper.searchByArea(line, 'offered', pageconfig_file, max_search_page, search_page_size, ['li', 'listing-result'], output_file)
 
 
-scrape_by_area()
+def main():
+    scrape_by_area()
+
+if __name__ == "__main__":
+    main()
+
